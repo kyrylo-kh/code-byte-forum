@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace CodeByteForum.Models
 {
@@ -12,9 +9,9 @@ namespace CodeByteForum.Models
 
         public string Title { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime PublishDate { get; set; }
 
-        public User Author { get; set; }
+        public User Sender { get; set; }
 
         public List<string> Tags { get; set; }
 
@@ -24,15 +21,14 @@ namespace CodeByteForum.Models
 
         public string Topic { get; set; }
 
-        public List<File> Files { get; set; }
-
-        public TextFile TextFile { get; set; }
+        public string Text { get; set; }
 
         public string Division { get; set; }
 
         public int ViewsCount { get; set; }
 
-        public bool isSolved { get; set; }
-
+        public int Rating { get; set; }
+ 
+        public bool IsSolved { get; set; }
     }
 }

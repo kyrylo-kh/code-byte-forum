@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CodeByteForum.Interfaces
+﻿namespace CodeByteForum.Interfaces
 {
     interface IPostManager
     {
+        void Create();
+        void Edit();
+        void Delete();
     }
 }
