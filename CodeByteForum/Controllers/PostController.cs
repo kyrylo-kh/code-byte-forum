@@ -14,10 +14,10 @@ namespace CodeByteForum.Controllers
     public class PostController : Controller
     {
         private readonly ApplicationContext db;
-        private readonly UserManager<User>  userManager; // -identityuser = user
+        private readonly UserManager<User>  userManager;
         
         
-        public PostController(ApplicationContext _context, UserManager<User> _userManager) // -identityuser = user
+        public PostController(ApplicationContext _context, UserManager<User> _userManager)
         {
             this.db = _context; 
             this.userManager = _userManager;
@@ -44,13 +44,12 @@ namespace CodeByteForum.Controllers
                 .ToList(); // В List<string>.
 
             // Генерация модели владельца поста.
-            User _user = await userManager.FindByNameAsync(User.Identity.Name); // !!!!!!
+            User _user = await userManager.FindByNameAsync(User.Identity.Name);
 
             // Генерация модели нового поста.
             Post new_post = new Post {
                 Title = model.Title, PublishDate = DateTime.Now,
-                Sender = _user, // !!!!!!!!!!!!!!!!!!!!!!!!!
-                Tags = _tags,
+                Sender = _user, Tags = _tags,
                 AnswerCount = 0, Topic = model.Topic,
                 Text = model.Text, ViewsCount = 0,
                 Rating = 0, IsSolved = false};
@@ -61,7 +60,7 @@ namespace CodeByteForum.Controllers
                 db.Posts.Add(new_post);
                 
                 await db.SaveChangesAsync();
-                return RedirectToAction("/Home/Index");
+                return Redirect("~/Home/Index");
             }
             return View();
         }

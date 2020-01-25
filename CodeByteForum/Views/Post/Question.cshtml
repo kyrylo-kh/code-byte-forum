@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = Model.Title;
 }
-<h2>@Model.Title</h2>
 <div>
-    <dl class="dl-horizontal">
-        <dt>Текст</dt>
+    <h6>Дата создания: @Model.PublishDate</h6>
+    <dl class="dl-horizontal" style="border: 2px solid black; padding: 10px">
+        <dt align="center"><h2>@Model.Title</h2></dt>
         <dd>@Model.Text</dd>
     </dl>
 </div>

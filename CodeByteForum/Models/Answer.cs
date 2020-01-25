@@ -15,7 +15,6 @@ namespace CodeByteForum.Models
         public int PostId { get; set; }
         public Post Home { get; set; }
 
-
         public DateTime PublishDate { get; set; }
         public string Text { get; set; }
         public int Rating { get; set; }

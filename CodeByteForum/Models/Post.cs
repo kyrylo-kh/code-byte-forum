@@ -15,7 +15,6 @@ namespace CodeByteForum.Models
 
         public User Sender { get; set; }
 
-
         public List<string> Tags { get; set; }
 
         public int AnswerCount { get; set; }

@@ -19,6 +19,8 @@
             <a asp-controller="Account" asp-action="Register">Регистрация</a>
         }
 
+        <a class="btn btn-dark" asp-action="Create" asp-controller="Post">Создать пост</a>
+
         <table class="table">
             <tr><td>Название</td><td>Тема</td></tr>
             @foreach (var post in Model)
