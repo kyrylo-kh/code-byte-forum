@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace CodeByteForum.Models
 {
@@ -12,6 +14,7 @@ namespace CodeByteForum.Models
         public DateTime PublishDate { get; set; }
 
         public User Sender { get; set; }
+
 
         public List<string> Tags { get; set; }
 

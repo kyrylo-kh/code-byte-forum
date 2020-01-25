@@ -1,0 +1,11 @@
+﻿@model CodeByteForum.Models.Post;
+@{
+    ViewData["Title"] = Model.Title;
+}
+<h2>@Model.Title</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>Текст</dt>
+        <dd>@Model.Text</dd>
+    </dl>
+</div>

@@ -1,23 +1,29 @@
-﻿@{
+﻿@model IEnumerable<CodeByteForum.Models.Post>;
+@{
     ViewData["Title"] = "Home Page";
 }
-
     <div class="text-center">
         <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-        <a class="btn btn-info" asp-controller="Post" asp-action="Create">Create Post</a>
         <br />
-        @if(User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated)
         {
-        <p>@User.Identity.Name</p>
+            <p>@User.Identity.Name</p>
 
-        <form method="post" asp-controller="Account" asp-action="Logout">
-            <input type="submit" value="Выход" />
-        </form>
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <input type="submit" value="Выход" />
+            </form>
         }
         else
         {
-        <a asp-controller="Account" asp-action="Login">Вход</a>
-        <a asp-controller="Account" asp-action="Register">Регистрация</a>
+            <a asp-controller="Account" asp-action="Login">Вход</a>
+            <a asp-controller="Account" asp-action="Register">Регистрация</a>
         }
+
+        <table class="table">
+            <tr><td>Название</td><td>Тема</td></tr>
+            @foreach (var post in Model)
+            {
+                <tr><td><a asp-action="Question" asp-controller="Post" asp-route-id="@post.Id">@post.Title</a></td><td>@post.Topic</td></tr>
+            }
+        </table>
     </div>

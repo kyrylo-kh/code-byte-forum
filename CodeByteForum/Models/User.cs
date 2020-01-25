@@ -8,6 +8,7 @@ namespace CodeByteForum.Models
 {
     public class User : IdentityUser
     {
-        public List<Post> Posts;
+        public List<Post> Posts { get; set; }
+        public List<Answer> Answers { get; set; }
     }
 }
