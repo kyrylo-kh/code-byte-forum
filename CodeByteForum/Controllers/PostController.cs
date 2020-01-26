@@ -65,17 +65,66 @@ namespace CodeByteForum.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Question(int? id)
         {
             if(id != null)
             {
-                Post post = await db.Posts.FirstOrDefaultAsync(p => p.Id == id);
-                if(post != null)
+                Post post = await db.Posts
+                    .Include(a => a.Answers)
+                        .ThenInclude(s => s.Sender)
+                    .Include(u => u.Sender)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                List<Answer> _Answers = post.Answers.ToList();
+
+                User _Sender = post.Sender;
+
+                PostViewModel viewModel = new PostViewModel
                 {
-                    return View(post);
+                    Post = post,
+                    Answers = _Answers,
+                    Sender = _Sender
+                };
+
+                if (post != null)
+                {
+                    return View(viewModel);
                 }
             }
             return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Question(string _Text, int? id)
+        {
+            if(_Text == null)
+            {
+                return Redirect(HttpContext.Request.Path.ToString());
+            }
+            // Текущий пользователь, который оставляет комментарий.
+            User _user = await userManager.FindByNameAsync(User.Identity.Name);
+
+            // ОБРАТИТЬ ВНИМАНИ НА ИНКЛЮД! ЭТО ТЕСТОВАЯ ФУНКЦИЯ, НЕ ФАКТ ЧТО БУДЕТ РАБОТАТЬ.
+            Post _currentPost = await db.Posts
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            Answer new_answer = new Answer
+            {
+                Sender = _user, Home = _currentPost,
+                PublishDate = DateTime.Now,
+                Text = _Text,
+                Rating = 0
+            };
+
+            if(new_answer != null)
+            {
+                db.Answers.Add(new_answer);
+                _currentPost.AnswerCount += 1;
+                await db.SaveChangesAsync();
+                return Redirect(HttpContext.Request.Path.ToString());
+            }
+            return Redirect(HttpContext.Request.Path.ToString());
         }
     }
 }   
