@@ -23,6 +23,14 @@
                             {
                                 <li align="right" class="nav-item">@User.Identity.Name</li>
                                 <li align="right" class="nav-item">
+                                    <form method="get" 
+                                          asp-controller="Account" 
+                                          asp-action="Profile"
+                                          asp-route-id="@User.Identity.Name">
+                                        <input type="submit" value="Личный кабинет" />
+                                    </form>
+                                </li>
+                                <li align="right" class="nav-item">
                                     <form method="post" asp-controller="Account" asp-action="Logout">
                                         <input type="submit" value="Выход" />
                                     </form>

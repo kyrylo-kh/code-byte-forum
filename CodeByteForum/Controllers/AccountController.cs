@@ -7,18 +7,22 @@ using Microsoft.AspNetCore.Identity;
 using CodeByteForum.Models;
 using CodeByteForum.ViewModels;
 using CodeByteForum.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeByteForum.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly ApplicationContext db;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
+            ApplicationContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            db = context;
         }
         [HttpGet]
         public IActionResult Register()
@@ -63,7 +67,8 @@ namespace CodeByteForum.Controllers
             if (ModelState.IsValid)
             {
                 var result =
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                    await _signInManager
+                    .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
                     // проверяем, принадлежит ли URL приложению
@@ -92,5 +97,17 @@ namespace CodeByteForum.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> Profile(string? id)
+        {
+            User _user = await db.Users
+                .Include(p => p.Posts)
+                .FirstOrDefaultAsync(i => i.Id == id);
+            if (_user != null)
+            {
+                return View(_user);
+            }
+            return NotFound();
+        }    
     }
 }

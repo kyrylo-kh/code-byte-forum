@@ -24,7 +24,9 @@ namespace CodeByteForum.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await db.Posts.ToListAsync());
+            return View(await db.Posts
+                .Include(s => s.Sender)
+                .ToListAsync());
         }
 
         public IActionResult Privacy()

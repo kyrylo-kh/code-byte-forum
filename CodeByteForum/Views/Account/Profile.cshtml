@@ -1,0 +1,37 @@
+﻿@model CodeByteForum.Models.User;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Аккаунт";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1 align="center">@Model.Email</h1>
+    @if (Model.Posts.Count > 0)
+    {
+    <ul class="list-group" align="center">
+        <li class="list-group-item active">Посты от пользователя</li>
+        @foreach (Post post in Model.Posts)
+        {
+            <li class="list-group-item">
+                <a asp-action="Question"
+                   asp-controller="Post"
+                   asp-route-id="@post.Id">
+                    @post.Title
+                </a>
+            </li>
+        }
+    </ul>
+    }
+    else
+    {
+        <h3>Пользователь не имеет постов.</h3>
+    }
+    </body>
+</html>

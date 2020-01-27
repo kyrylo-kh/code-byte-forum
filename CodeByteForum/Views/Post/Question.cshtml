@@ -3,8 +3,16 @@
     ViewData["Title"] = Model.Post.Title;
 }
     <div>
-        <h6>Автор: @Model.Sender.Email</h6>
-        <h6>Дата создания: @Model.Post.PublishDate</h6>
+        <h6>Автор: 
+            <a asp-action="Profile" 
+               asp-controller="Account" 
+               asp-route-id="@Model.Sender.Id">
+                @Model.Sender.Email
+            </a>
+        </h6>
+        <h6>Дата создания: @Model.Post.PublishDate.ToString("dd/MM/yyyy HH:mm")</h6>
+        <h6>Ответов: @Model.Post.AnswerCount</h6>
+        <h6>Просмотров: @Model.Post.ViewsCount</h6>
         <dl class="dl-horizontal" style="border: 2px solid black; padding: 10px">
             <dt align="center"><h2>@Model.Post.Title</h2></dt>
             <dd>@Model.Post.Text</dd>
@@ -20,9 +28,16 @@
                     <div class="form-group" style="width: 100%">
                         <textarea name="_Text" class="form-control"></textarea>
                     </div>
-                    <div class="form-group">
-                        <input type="submit" value="Оставить комментарий" class="btn btn-dark" asp-route-id="@Model.Post.Id" />
-                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="Оставить комментарий" class="btn btn-dark" asp-route-id="@Model.Post.Id" />
+                        </div>
+                    }
+                    else
+                    {
+                         <a asp-action="Login" asp-controller="Account">Войдите, чтобы оставить комментарий</a>
+                    }
                 </form>
             </dd>
         </dl>

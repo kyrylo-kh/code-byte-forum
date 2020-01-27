@@ -9,23 +9,45 @@
         {
             <p>@User.Identity.Name</p>
 
-            <form method="post" asp-controller="Account" asp-action="Logout">
+            <form method="post" 
+                  asp-controller="Account" 
+                  asp-action="Logout">
                 <input type="submit" value="Выход" />
             </form>
         }
         else
         {
-            <a asp-controller="Account" asp-action="Login">Вход</a>
-            <a asp-controller="Account" asp-action="Register">Регистрация</a>
+            <a asp-controller="Account" 
+               asp-action="Login">Вход</a>
+            <a asp-controller="Account" 
+               asp-action="Register">Регистрация</a>
         }
 
         <a class="btn btn-dark" asp-action="Create" asp-controller="Post">Создать пост</a>
 
         <table class="table">
-            <tr><td>Название</td><td>Тема</td></tr>
+            <tr><td>Название</td><td>Автор</td><td>Тема</td></tr>
             @foreach (var post in Model)
             {
-                <tr><td><a asp-action="Question" asp-controller="Post" asp-route-id="@post.Id">@post.Title</a></td><td>@post.Topic</td></tr>
+                <tr>
+                    <td>
+                        <a asp-action="Question" 
+                           asp-controller="Post" 
+                           asp-route-id="@post.Id">
+                            @post.Title
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Profile" 
+                           asp-controller="Account" 
+                           asp-route-id="@post.Sender.Id">
+                            @post.Sender
+                        </a>
+                    </td>
+                    <td>
+                        @post.Topic
+                    </td>
+                </tr>
             }
         </table>
     </div>

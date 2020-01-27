@@ -105,7 +105,7 @@ namespace CodeByteForum.Controllers
             // Текущий пользователь, который оставляет комментарий.
             User _user = await userManager.FindByNameAsync(User.Identity.Name);
 
-            // ОБРАТИТЬ ВНИМАНИ НА ИНКЛЮД! ЭТО ТЕСТОВАЯ ФУНКЦИЯ, НЕ ФАКТ ЧТО БУДЕТ РАБОТАТЬ.
+            // Пост, в котором пишется комментарий, включая отправителя.
             Post _currentPost = await db.Posts
                 .FirstOrDefaultAsync(p => p.Id == id);
 
