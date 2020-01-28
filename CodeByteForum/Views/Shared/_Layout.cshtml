@@ -5,53 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CodeByteForum</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/layout.css" />
 </head>
 <body>
-    <header>
-            <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm" style="background-color: #253242; color: #BABEC3 !important; text-decoration: none">
-                <div class="container">
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Тест</a>
-                            </li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li align="right" class="nav-item">@User.Identity.Name</li>
-                                <li align="right" class="nav-item">
-                                    <form method="get" 
-                                          asp-controller="Account" 
-                                          asp-action="Profile"
-                                          asp-route-id="@User.Identity.Name">
-                                        <input type="submit" value="Личный кабинет" />
-                                    </form>
-                                </li>
-                                <li align="right" class="nav-item">
-                                    <form method="post" asp-controller="Account" asp-action="Logout">
-                                        <input type="submit" value="Выход" />
-                                    </form>
-                                </li>
-                            }
-                            else
-                            {
-                                <li align="right" class="nav-item">
-                                    <a asp-controller="Account" asp-action="Login">Вход</a>
-                                </li>
-                                <li align="right" class="nav-item">
-                                    <a asp-controller="Account" asp-action="Register">Регистрация</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+    <header class="header">
+        <div class="top-title">
+            <div class="text1">Code Byte Forum</div>
+            <div class="text2">Больше, чем любовь</div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Главная</a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Что-то ещё</a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="Privacy">О сайте</a>
+                </li>
+            </ul>
+            <ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>
+                        <a style="border-radius: 0px 0px 0px 0px;" href="#">@User.Identity.Name</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Account" asp-action="Logout">Выход</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-controller="Account" asp-action="Login">Вход</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Account" asp-action="Register">Регистрация</a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3" style="margin-top: 58px">
+        <main role="main" class="pb-3" style="margin-top: 70px">
             @RenderBody()
         </main>
     </div>

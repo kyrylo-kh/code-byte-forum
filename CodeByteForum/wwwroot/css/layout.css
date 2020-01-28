@@ -1,0 +1,122 @@
+﻿/*
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  Слабонервным ниже не спускаться!
+  ОПАСНО ДЛЯ ЖИЗНИ! ФРОНТ ДЕЛАЛ ЧЕЛОВЕК С ПЕЩЕРЫ!
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*/
+* {
+    box-sizing: border-box;
+}
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ul, li {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+body {
+    font-family: Verdana, Arial, sans-serif;
+    background-color: white;
+}
+.header {
+    height: 120px;
+}
+@keyframes text1 {
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 0;
+    }
+}
+@keyframes text2 {
+    30% {
+        opacity: 0;
+    }
+
+    60% {
+        opacity: 1;
+    }
+}
+@keyframes header {
+    10% {
+        background-color: #008978;
+    }
+
+    40% {
+        background-color: #34495e;
+    }
+
+    80% {
+        background-color: #2e3740;
+    }
+}
+.text1, .text2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 120px;
+    text-align: center;
+    font-size: 40px;
+    color: #fff;
+    -webkit-text-stroke: 2px black;
+    font-weight: 900;
+    opacity: 0;
+}
+.text1 {
+    animation: text1 6s infinite;
+}
+.text2 {
+    animation: text2 6s infinite;
+}
+.header .top-title {
+    opacity: 0.8;
+    position: absolute;
+    width: 100%;
+    height: 120px;
+    background-color: #34495e;
+    animation: header 6s infinite;
+}
+.nav {
+    width: 100%;
+    background-color: #eee;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-top: 120px;
+    margin-bottom: 20px;
+}
+.nav ul{
+    margin-left: auto;
+    margin-right: auto;
+}
+.nav li {
+    float: left;
+    list-style: none;   
+}
+.nav a, .logout{
+    display: block;
+    color: black;
+    padding: 10px 25px;
+    text-decoration: none;
+    border: 2px solid black;
+    border-radius: 0px 0px 0px 0px;
+    margin: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.nav a:hover{
+    background-color: black;
+    color: white;
+}
+.nav li:first-child a {
+    border-radius: 20px 0px 0px 20px;
+}
+.nav li:last-child a {
+    border-radius: 0px 20px 20px 0px;
+}
+.nav:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
