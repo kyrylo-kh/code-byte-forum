@@ -2,34 +2,25 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <br />
-        <a class="btn btn-dark" asp-action="Create" asp-controller="Post">Создать пост</a>
-
-        <table class="table">
-            <tr><td>Название</td><td>Автор</td><td>Тема</td></tr>
-            @foreach (var post in Model)
-            {
-                <tr>
-                    <td>
-                        <a asp-action="Question" 
-                           asp-controller="Post" 
-                           asp-route-id="@post.Id">
-                            @post.Title
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-action="Profile" 
-                           asp-controller="Account" 
-                           asp-route-id="@post.Sender.Id">
-                            @post.Sender
-                        </a>
-                    </td>
-                    <td>
-                        @post.Topic
-                    </td>
-                </tr>
-            }
-        </table>
+@section Styles {
+    <link href="@Url.Content("~/css/home-index.css")" rel="stylesheet" type="text/css" />
+}
+<div class="container">
+    <div class="row">
+        @foreach (var post in Model)
+        {
+            <div class="post">
+                <p class="post-meta"><a href="#">@post.Sender</a> @post.PublishDate.ToString("dd/MM/yyyy HH:mm")</p>
+                <h3 class="post-title">@post.Title</h3>
+                <p>@post.Text</p>
+                <hr />
+                <a class="button-read"
+                   asp-action="Question"
+                   asp-controller="Post"
+                   asp-route-id="@post.Id">
+                    Читать далее...
+                </a>
+            </div>
+        }
     </div>
+</div>

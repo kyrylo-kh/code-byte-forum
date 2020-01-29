@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - CodeByteForum</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/layout.css" />
+    @RenderSection("Styles", false)
 </head>
 <body>
     <header class="header">
@@ -29,6 +30,11 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li>
+                        <a style="border-radius: 0px 0px 0px 0px;" 
+                           asp-action="Create" 
+                           asp-controller="Post">Создать пост</a>
+                    </li>
+                    <li>
                         <a style="border-radius: 0px 0px 0px 0px;" href="#">@User.Identity.Name</a>
                     </li>
                     <li>
@@ -47,15 +53,16 @@
             </ul>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3" style="margin-top: 70px">
+    <div>
+        <main role="main" style="margin-top: 70px">
             @RenderBody()
         </main>
+        <br />
+        <div class="foot">
+            <p>Контакты для связи: thposbsmt@protonmail.com</p>
+            <p>Copyright © code-byte-forum.com 2020. Все права защищены</p>
+        </div>
     </div>
-
-    <footer class="footer" style="border-top: 3px solid black">
-        <p>© 2020 - Code-Byte-Forum</p>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

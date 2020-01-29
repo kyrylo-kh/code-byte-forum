@@ -11,6 +11,10 @@
     <Compile Remove="Migrations\20200125154828_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200125155246_InitialCreate.cs" />
     <Compile Remove="Migrations\20200125155246_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200128144324_AddLoginForUser.cs" />
+    <Compile Remove="Migrations\20200128144324_AddLoginForUser.Designer.cs" />
+    <Compile Remove="Migrations\20200128154328_AddLoginForUser.cs" />
+    <Compile Remove="Migrations\20200128154328_AddLoginForUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 
