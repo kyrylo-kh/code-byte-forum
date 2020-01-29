@@ -11,6 +11,13 @@
         {
             <div class="post">
                 <p class="post-meta"><a href="#">@post.Sender</a> @post.PublishDate.ToString("dd/MM/yyyy HH:mm")</p>
+                <ul class="tags">
+                    @foreach (var tag in post.Tags)
+                    {
+                        <li><a href="#">@tag</a></li>
+                    }
+                </ul>  
+                <br />
                 <h3 class="post-title">@post.Title</h3>
                 <p>@post.Text</p>
                 <hr />
