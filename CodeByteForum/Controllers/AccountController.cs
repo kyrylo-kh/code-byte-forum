@@ -34,7 +34,7 @@ namespace CodeByteForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Login,
+                User user = new User { Email = model.Email, UserName = model.Email,
                                        Login = model.Login};
                 // Добавляем пользователя.
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -99,7 +99,7 @@ namespace CodeByteForum.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Profile(string? login)
+        public async Task<IActionResult> Profile(string? login, string infoItem)
         {
             User _user = await db.Users
                 .Include(p => p.Posts)
@@ -107,9 +107,53 @@ namespace CodeByteForum.Controllers
                 .FirstOrDefaultAsync(i => i.Login == login);
             if (_user != null)
             {
-                return View(_user);
+                return View(new ProfileViewModel { 
+                    Email = _user.Email,
+                    Login = _user.Login,
+                    Posts = _user.Posts,
+                    Answers = _user.Answers,
+                    InfoItem = infoItem
+                });
             }
             return NotFound();
         }    
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User _user = await db.Users
+                .Include(p => p.Posts)
+                .Include(a => a.Answers)
+                .FirstOrDefaultAsync(i => i.Login == model.Login);
+                if (_user != null)
+                {
+                    var result = await _userManager.ChangePasswordAsync(_user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return View(new ProfileViewModel {
+                            Email = _user.Email,
+                            Login = _user.Login,
+                            Posts = _user.Posts,
+                            Answers = _user.Answers,
+                            InfoItem = model.InfoItem
+                        });
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
+                }
+            }
+            return View(model);
+        }
     }
 }

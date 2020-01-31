@@ -1,4 +1,4 @@
-﻿@model CodeByteForum.Models.User;
+﻿@model CodeByteForum.ViewModels.ProfileViewModel;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Аккаунт";
@@ -10,28 +10,98 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <style>
+        .container {
+            padding: 0 2% 0 2%;
+        }
+        h1.active {
+            padding: 1% 0 1% 0;
+            background-color: aqua;
+            display: block;
+            font-size: 1.5em;
+        }
+        .account-settings{
+            font-size: 1.2em;
+            border: 3px solid black;
+            border-radius: 5%;
+            padding: 2%;
+        }
+        .account-settings h2 {
+            border-bottom: 2px solid black;
+        }
+        .account-posts {
+            margin-left: 4%;
+        }
+        .account {
+            padding-top: 2%;
+        }
+        li {
+            text-decoration: none;
+            list-style: none;
+        }
+
+    </style>
 </head>
 <body>
-    <h1 align="center">@Model.Email</h1>
-    @if (Model.Posts.Count > 0)
-    {
-    <ul class="list-group" align="center">
-        <li class="list-group-item active">Посты от пользователя</li>
-        @foreach (Post post in Model.Posts)
-        {
-            <li class="list-group-item">
-                <a asp-action="Question"
-                   asp-controller="Post"
-                   asp-route-id="@post.Id">
-                    @post.Title
-                </a>
-            </li>
-        }
-    </ul>
-    }
-    else
-    {
-        <h3>Пользователь не имеет постов.</h3>
-    }
+    <div class="container">
+        <h1 class="active" align="center">Информация о @Model.Login</h1>
+        <div class="account d-flex justify-content-between">
+            <div class="account-settings">
+                <h2>Вкладки</h2>
+                <ul>
+                    <li><a asp-route-login="@Model.Login" asp-route-infoItem="Posts">Посты</a></li>
+                    <li><a asp-route-login="@Model.Login" asp-route-infoItem="Info">Информация</a></li>
+                    <li><a asp-route-login="@Model.Login" asp-route-infoItem="Settings">Настройки</a></li>
+                </ul>
+            </div>
+            <div class="account-posts flex-grow-1">
+                @if (Model.InfoItem == "Posts" || Model.InfoItem == null)
+                {
+                    @if (Model.Posts.Count > 0)
+                    {
+                        <ul class="list-group" align="center">
+                            <li class="list-group-item active">Посты от пользователя</li>
+                            @foreach (Post post in Model.Posts)
+                            {
+                                <li class="list-group-item">
+                                    <a asp-action="Question"
+                                       asp-controller="Post"
+                                       asp-route-id="@post.Id">
+                                        @post.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <h3>Пользователь не имеет постов.</h3>
+                    }
+                }
+
+                @if (Model.InfoItem == "Info")
+                {
+                    <p>Почта: @Model.Email</p>
+                    <p>Логин: @Model.Login</p>
+                    <p>Количество постов: @Model.Posts.Count</p>
+                    <p>Количество ответов: @Model.Answers.Count</p>
+                }
+
+                @if (Model.InfoItem == "Settings")
+                {
+                    <form>
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <p><label>Почта: <input asp-for="@Model.Email" /></label></p>
+                        <p><label>Логин: <input asp-for="@Model.Login" /></label></p>
+                        <p><label>Старый пароль: <input asp-for="@Model.OldPassword" /></label></p>
+                        <p><label>Новый пароль: <input asp-for="@Model.NewPassword" /></label></p>
+                        <p><label>Подтвердите пароль: <input asp-for="@Model.ConfirmPassword" /></label></p>
+                        <p><input type="submit" value="Сохранить" /></p>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+    
     </body>
 </html>
