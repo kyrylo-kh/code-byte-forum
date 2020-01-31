@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using CodeByteForum.Models;
 using CodeByteForum.Data;
 using Microsoft.EntityFrameworkCore;
+using CodeByteForum.ViewModels;
 
 namespace CodeByteForum.Controllers
 {
@@ -22,11 +23,21 @@ namespace CodeByteForum.Controllers
             db = _db;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTitle)
         {
-            return View(await db.Posts
-                .Include(s => s.Sender)
-                .ToListAsync());
+            IQueryable<Post> posts = db.Posts.Include(s => s.Sender);
+            if(!String.IsNullOrEmpty(searchTitle))
+            {
+                posts = posts.Where(p => p.Title.Contains(searchTitle));
+            }
+
+            PostsListViewModel viewModel = new PostsListViewModel
+            {
+                Posts = posts.ToList(),
+                SearchTitle = searchTitle
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
