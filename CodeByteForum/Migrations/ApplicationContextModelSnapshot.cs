@@ -47,7 +47,7 @@ namespace CodeByteForum.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Answer");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("CodeByteForum.Models.Post", b =>
@@ -121,6 +121,9 @@ namespace CodeByteForum.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")

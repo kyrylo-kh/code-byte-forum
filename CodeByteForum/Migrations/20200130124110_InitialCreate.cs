@@ -39,7 +39,8 @@ namespace CodeByteForum.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Login = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -160,8 +161,7 @@ namespace CodeByteForum.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(nullable: true),
                     PublishDate = table.Column<DateTime>(nullable: false),
-                    SenderId = table.Column<int>(nullable: false),
-                    SenderId1 = table.Column<string>(nullable: true),
+                    SenderId = table.Column<string>(nullable: true),
                     Tags = table.Column<string>(nullable: true),
                     AnswerCount = table.Column<int>(nullable: false),
                     Topic = table.Column<string>(nullable: true),
@@ -175,21 +175,20 @@ namespace CodeByteForum.Migrations
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_AspNetUsers_SenderId1",
-                        column: x => x.SenderId1,
+                        name: "FK_Posts_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answer",
+                name: "Answers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SenderId = table.Column<int>(nullable: false),
-                    SenderId1 = table.Column<string>(nullable: true),
+                    SenderId = table.Column<string>(nullable: true),
                     PostId = table.Column<int>(nullable: false),
                     PublishDate = table.Column<DateTime>(nullable: false),
                     Text = table.Column<string>(nullable: true),
@@ -197,30 +196,30 @@ namespace CodeByteForum.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answer", x => x.Id);
+                    table.PrimaryKey("PK_Answers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Answer_Posts_PostId",
+                        name: "FK_Answers_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Answer_AspNetUsers_SenderId1",
-                        column: x => x.SenderId1,
+                        name: "FK_Answers_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_PostId",
-                table: "Answer",
+                name: "IX_Answers_PostId",
+                table: "Answers",
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_SenderId1",
-                table: "Answer",
-                column: "SenderId1");
+                name: "IX_Answers_SenderId",
+                table: "Answers",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -262,15 +261,15 @@ namespace CodeByteForum.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_SenderId1",
+                name: "IX_Posts_SenderId",
                 table: "Posts",
-                column: "SenderId1");
+                column: "SenderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Answer");
+                name: "Answers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

@@ -6,8 +6,8 @@
         <h6>Автор: 
             <a asp-action="Profile" 
                asp-controller="Account" 
-               asp-route-id="@Model.Sender.Id">
-                @Model.Sender.Email
+               asp-route-login="@Model.Sender.Login">
+                @Model.Sender.Login
             </a>
         </h6>
         <h6>Дата создания: @Model.Post.PublishDate.ToString("dd/MM/yyyy HH:mm")</h6>

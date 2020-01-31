@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeByteForum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200125155516_InitialCreate")]
+    [Migration("20200130124110_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,10 +37,7 @@ namespace CodeByteForum.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SenderId1")
+                    b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Text")
@@ -50,9 +47,9 @@ namespace CodeByteForum.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("SenderId1");
+                    b.HasIndex("SenderId");
 
-                    b.ToTable("Answer");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("CodeByteForum.Models.Post", b =>
@@ -77,10 +74,7 @@ namespace CodeByteForum.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SenderId1")
+                    b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Tags")
@@ -100,7 +94,7 @@ namespace CodeByteForum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SenderId1");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Posts");
                 });
@@ -129,6 +123,9 @@ namespace CodeByteForum.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -311,14 +308,14 @@ namespace CodeByteForum.Migrations
 
                     b.HasOne("CodeByteForum.Models.User", "Sender")
                         .WithMany("Answers")
-                        .HasForeignKey("SenderId1");
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("CodeByteForum.Models.Post", b =>
                 {
                     b.HasOne("CodeByteForum.Models.User", "Sender")
                         .WithMany("Posts")
-                        .HasForeignKey("SenderId1");
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -10,5 +10,6 @@ namespace CodeByteForum.Models
     {
         public List<Post> Posts { get; set; }
         public List<Answer> Answers { get; set; }
+        public string Login { get; set; }
     }
 }

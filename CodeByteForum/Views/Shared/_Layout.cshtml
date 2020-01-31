@@ -35,7 +35,11 @@
                            asp-controller="Post">Создать пост</a>
                     </li>
                     <li>
-                        <a style="border-radius: 0px 0px 0px 0px;" href="#">@User.Identity.Name</a>
+                        <a style="border-radius: 0px 0px 0px 0px;" 
+                           asp-action="Profile"
+                           asp-controller="Account"
+                           asp-route-login="@User.Identity.Name"
+                           >@User.Identity.Name</a>
                     </li>
                     <li>
                         <a asp-controller="Account" asp-action="Logout">Выход</a>

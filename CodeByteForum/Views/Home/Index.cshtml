@@ -7,27 +7,34 @@
 }
 <div class="container">
     <div class="row">
-        @foreach (var post in Model)
-        {
-            <div class="post">
-                <p class="post-meta"><a href="#">@post.Sender</a> @post.PublishDate.ToString("dd/MM/yyyy HH:mm")</p>
-                <ul class="tags">
-                    @foreach (var tag in post.Tags)
-                    {
-                        <li><a href="#">@tag</a></li>
-                    }
-                </ul>  
-                <br />
-                <h3 class="post-title">@post.Title</h3>
-                <p>@post.Text</p>
-                <hr />
-                <a class="button-read"
-                   asp-action="Question"
-                   asp-controller="Post"
-                   asp-route-id="@post.Id">
-                    Читать далее...
-                </a>
+        <div class="col-md-9">
+            @foreach (var post in Model)
+            {
+                <div class="post">
+                    <p class="post-meta"><a href="#">@post.Sender</a> @post.PublishDate.ToString("dd/MM/yyyy HH:mm")</p>
+                    <ul class="tags">
+                        @foreach (var tag in post.Tags)
+                        {
+                            <li><a href="#">@tag</a></li>
+                        }
+                    </ul>
+                    <br />
+                    <h4 class="post-title">@post.Title</h4>
+                    <p>@post.Text</p>
+                    <hr />
+                    <a class="button-read"
+                       asp-action="Question"
+                       asp-controller="Post"
+                       asp-route-id="@post.Id">
+                        Читать далее...
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="col-md-3">
+            <div class="sidebar">
+                <p>Правый сайдбар</p>
             </div>
-        }
+        </div>
     </div>
 </div>

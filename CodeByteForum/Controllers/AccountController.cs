@@ -34,7 +34,8 @@ namespace CodeByteForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email };
+                User user = new User { Email = model.Email, UserName = model.Login,
+                                       Login = model.Login};
                 // Добавляем пользователя.
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -98,11 +99,12 @@ namespace CodeByteForum.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Profile(string? id)
+        public async Task<IActionResult> Profile(string? login)
         {
             User _user = await db.Users
                 .Include(p => p.Posts)
-                .FirstOrDefaultAsync(i => i.Id == id);
+                .Include(a => a.Answers)
+                .FirstOrDefaultAsync(i => i.Login == login);
             if (_user != null)
             {
                 return View(_user);

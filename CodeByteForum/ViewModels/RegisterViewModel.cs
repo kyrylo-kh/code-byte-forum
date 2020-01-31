@@ -9,6 +9,9 @@ namespace CodeByteForum.ViewModels
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Уникальный логин пользователя")]
+        public string Login { get; set; }
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
