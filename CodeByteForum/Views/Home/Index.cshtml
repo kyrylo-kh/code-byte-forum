@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CodeByteForum.Models.Post>;
+﻿@model CodeByteForum.ViewModels.PostsListViewModel;
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            @foreach (var post in Model)
+            @foreach (var post in Model.Posts)
             {
                 <div class="post">
                     <p class="post-meta"><a href="#">@post.Sender</a> @post.PublishDate.ToString("dd/MM/yyyy HH:mm")</p>
@@ -33,7 +33,14 @@
         </div>
         <div class="col-md-3">
             <div class="sidebar">
-                <p>Правый сайдбар</p>
+                <div class="header">Фильтр постов</div>
+                <div class="main">
+                    <form method="get">
+                        Поиск:<input name="searchTitle" type="text" />
+                        Тэги:<input  type="text" />
+                        <input type="submit" value="Применить" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>

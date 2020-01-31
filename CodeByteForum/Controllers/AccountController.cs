@@ -34,7 +34,7 @@ namespace CodeByteForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Login,
+                User user = new User { Email = model.Email, UserName = model.Email,
                                        Login = model.Login};
                 // Добавляем пользователя.
                 var result = await _userManager.CreateAsync(user, model.Password);

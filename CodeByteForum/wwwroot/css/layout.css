@@ -104,6 +104,12 @@ body {
     font-weight: bold;
     transition: 0.3s;
 }
+
+.nav .logout:hover{
+    background-color: black;
+    color: white;
+}
+
 .nav a:hover{
     background-color: black;
     color: white;

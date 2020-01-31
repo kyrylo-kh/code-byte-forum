@@ -42,7 +42,9 @@
                            >@User.Identity.Name</a>
                     </li>
                     <li>
-                        <a asp-controller="Account" asp-action="Logout">Выход</a>
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input class="logout" type="submit" value="Выход" />
+                        </form>
                     </li>
                 }
                 else
