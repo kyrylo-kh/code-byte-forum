@@ -11,7 +11,13 @@
             @foreach (var post in Model.Posts)
             {
                 <div class="post">
-                    <p class="post-meta"><a href="#">@post.Sender</a> @post.PublishDate.ToString("dd/MM/yyyy HH:mm")</p>
+                    <p class="post-meta">
+                        <a asp-action="Profile" asp-controller="Account"
+                           asp-route-login="@post.Sender.Login">
+                        @post.Sender.Login
+                        </a> 
+                        @post.PublishDate.ToString("dd/MM/yyyy HH:mm")
+                    </p>
                     <ul class="tags">
                         @foreach (var tag in post.Tags)
                         {
@@ -36,9 +42,28 @@
                 <div class="header">Фильтр постов</div>
                 <div class="main">
                     <form method="get">
-                        Поиск:<input name="searchTitle" type="text" />
-                        Тэги:<input  type="text" />
-                        <input type="submit" value="Применить" />
+                        <input type="date" disabled />
+                        <input type="date" disabled />
+                        <table>
+                            <tr>
+                                <td>Поиск:</td>
+                                <td>
+                                    <input name="searchTitle" type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Тэги:</td>
+                                <td>
+                                    <input type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" colspan="2">
+                                    <input type="submit" class="button-filter" 
+                                           value="Применить" />
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
