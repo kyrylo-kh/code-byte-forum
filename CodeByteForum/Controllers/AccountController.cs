@@ -119,36 +119,46 @@ namespace CodeByteForum.Controllers
             return NotFound();
         }    
 
-        public async Task<IActionResult> Settings()
-        {
-            User _user = await _userManager.FindByNameAsync(User.Identity.Name);
-            return View(new SettingsViewModel
-            {
-                Email = _user.Email,
-                Login = _user.Login
-            });
-        }
+        //public async Task<IActionResult> Settings()
+        //{
+        //    User _user = await _userManager.FindByNameAsync(User.Identity.Name);
+        //    return View(new SettingsViewModel
+        //    {
+        //        Email = _user.Email,
+        //        Login = _user.Login
+        //    });
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Settings (SettingsViewModel model)
+        public async Task<IActionResult> Settings (ProfileViewModel model)
         {
+            User _user = await db.Users
+                    .Include(u => u.Answers)
+                    .Include(u => u.Posts)
+                    .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            model.User = _user;
             if (ModelState.IsValid)
             {
-                User _user = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (await _userManager.CheckPasswordAsync(_user, model.OldPassword)) {
-                    var result = await _userManager.ChangePasswordAsync(_user, model.OldPassword, model.NewPassword);
-                    if (result.Succeeded)
+                
+                if (model.OldPassword != null && model.NewPassword != null)
+                {
+                    if (await _userManager.CheckPasswordAsync(_user, model.OldPassword))
                     {
-                        if (_user.Email != model.Email)
-                            await _userManager.SetEmailAsync(_user, model.Email);
-                        if (_user.Login != model.Login)
-                            await _userManager.SetUserNameAsync(_user, model.Login);
-                        await _userManager.UpdateAsync(_user);
-                        return RedirectToAction("Profile");
+                        await _userManager.ChangePasswordAsync(_user, model.OldPassword, model.NewPassword);
                     }
+                    else
+                    {
+                        ModelState.AddModelError("OldPassword", "Вы ввели неправильный пароль");
+                    }
+                    return View("Profile", model);
                 }
+                if (model.User.Email != _user.Email)
+                {
+                    await _userManager.SetEmailAsync(_user, model.User.Email);
+                }
+                return View("Profile", model);
             }
-            return View(model);
+            return View("Profile", model);
         }
     }
 }

@@ -12,6 +12,17 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <style>
+        .account-info {
+            min-width: 30%;
+        }
+        #change-info {
+            display: none;
+        }
+        .container {
+            min-height: 70vh;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -38,17 +49,65 @@
                 }
             </div>
             <div class="account-info">
-                <p>Почта: @Model.User.Email</p>
-                <p>Логин: @Model.User.Login</p>
-                <p>Количество постов: @Model.User.Posts.Count</p>
-                <p>Количество ответов: @Model.User.Answers.Count</p>
-                @if (Model.User.Login == User.Identity.Name)
-                {
-                    <p><a asp-action="Settings">Настройки</a></p>
-                }
+                <div>
+                    <p>Почта: @Model.User.Email</p>
+                    <p>Логин: @Model.User.Login</p>
+                    <p>Количество постов: @Model.User.Posts.Count</p>
+                    <p>Количество ответов: @Model.User.Answers.Count</p>
+                    @if (Model.User.Login == User.Identity.Name)
+                    {
+                        <button id="settings">Настройки</button>
+                    }
+                </div>
+                <div id="change-info">
+                    <form asp-antiforgery="true" asp-action="Settings">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <p><label>Почта: <br /><input asp-for="@Model.User.Email" /></label></p>
+                        <span asp-validation-for="@Model.User.Email"></span>
+                        <p><label>Старый пароль: <br /><input asp-for="@Model.OldPassword" /></label></p>
+                        <span asp-validation-for="@Model.OldPassword"></span>
+                        <p><label>Новый пароль: <br /><input asp-for="@Model.NewPassword" id="NP"/></label></p>
+                        <span asp-validation-for="@Model.NewPassword" id="NPS"></span>
+                        <p><label>Подтвердите пароль: <br /><input asp-for="@Model.ConfirmPassword" id="CP"/></label></p>
+                        <span asp-validation-for="@Model.ConfirmPassword" id="CPS"></span>
+                        <p><input type="submit" value="Сохранить" id="save"/></p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
+
+    <script>
+        var button = document.getElementById("settings");
+        var save = document.getElementById("save");
+        var changeInfoDiv = document.getElementById("change-info");
+        button.addEventListener("click", () => {
+            if (changeInfoDiv.style.display == "block")
+                changeInfoDiv.style.display = "none";
+            else
+                changeInfoDiv.style.display = "block";
+        });
+        var NP = document.getElementById("NP");
+        var CP = document.getElementById("CP");
+        NP.addEventListener("input", Check);
+        CP.addEventListener("input", Check);
+        
+        function Check() {
+            if (!(NP.value == CP.value)) {
+                var CPS = document.getElementById("CPS");
+                CPS.innerText = "Пароли не совпадают";
+                save.disabled = true;
+                console.log(NP.value + " " + CP.value);
+            }
+            else if (NP.value == CP.value) {
+                var CPS = document.getElementById("CPS");
+                CPS.innerText = "";
+                console.log(NP.value + " " + CP.value);
+                save.disabled = false;
+            }
+        }
+        
+    </script>
 </body>
 </html>
