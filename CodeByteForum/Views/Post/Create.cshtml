@@ -4,37 +4,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Создание поста";
 }
-<div class="row">
-    <form asp-action="Create" class="">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label class="control-label">Заголовок</label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="control-label">Тема</label>
-            <input asp-for="Topic" class="form-control" />
-            <span asp-validation-for="Topic" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="control-label">Метки (через запятую, избегайте пробелов)</label>
-            <input asp-for="Tags" class="form-control" />
-            <span asp-validation-for="Tags" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="control-label">Текст</label>
-            <textarea asp-for="Text"
-                      class="form-control"
-                      style="width: 100%"></textarea>
-            <span asp-validation-for="Text" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Создать" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
+@section Styles {
+    <link href="@Url.Content("~/css/post-create.css")" rel="stylesheet" type="text/css" />
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="header">
+                <p>Создание нового поста</p>
+                <hr />
+            </div>
+            <div class="main">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="group">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                        <p class="title">Заголовок:</p>
+                        <input asp-for="Title" type="text" />
+                        <p class="description">Кратко и ясно.</p>
+                    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                    <div class="group">
+                        <span asp-validation-for="Topic" class="text-danger"></span>
+                        <p class="title">Выберите тему:</p>
+                        <select asp-for="Topic">
+                            <option value="Не выбрана" disabled selected>Не выбрано</option>
+                            <option value="Программирование">Программирование</option>
+                            <option value="Дизайн">Дизайн</option>
+                            <option value="Архитектура">Архитектура</option>
+                        </select>
+                        <p class="description">Выберите тематику.</p>
+                    </div>
+
+                    <div class="group">
+                        <span asp-validation-for="Text" class="text-danger"></span>
+                        <p class="title">Текст:</p>
+                        <textarea asp-for="Text" cols="30" rows="7"></textarea>
+                    </div>
+
+                    <div class="group">
+                        <span asp-validation-for="Tags" class="text-danger"></span>
+                        <p class="title">Введите теги (через запятую):</p>
+                        <input asp-for="Tags" type="text" />
+                        <p class="description">Регистр будет переведён в нижний.</p>
+                    </div>
+
+                    <div class="group">
+                        <input type="submit" value="Создать" class="btn-create" />
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Index" asp-controller="Home">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
 </div>

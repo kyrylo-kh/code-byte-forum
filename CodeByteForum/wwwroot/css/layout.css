@@ -11,12 +11,12 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ul, li {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    /* font-size: 100%; мешает шрифтам на других страницах*/
     vertical-align: baseline;
 }
 body {
     font-family: Verdana, Arial, sans-serif;
-    background-color: white;
+    background-color: #FCFCFC;
 }
 .header {
     height: 120px;
@@ -79,9 +79,7 @@ body {
 }
 .nav {
     width: 100%;
-    background-color: #eee;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    background-color: #FCFCFC;
     padding-top: 120px;
     margin-bottom: 20px;
 }
@@ -106,13 +104,15 @@ body {
 }
 
 .nav .logout:hover{
-    background-color: black;
+    background: linear-gradient(#2669a2, #1c4e79);
     color: white;
+    border: 1px solid black;
 }
 
 .nav a:hover{
-    background-color: black;
+    background: linear-gradient(#2669a2, #1c4e79);
     color: white;
+    border: 1px solid black;
 }
 .nav li:first-child a {
     border-radius: 20px 0px 0px 20px;
@@ -126,8 +126,7 @@ body {
     clear: both;
 }
 .foot {
-    background-color: #eee;
-    border-top: 1px solid #ccc;
+    background-color: #FCFCFC;
     font-size: .8em;
     text-align: center;
     padding: 10px 10px 30px 10px;
