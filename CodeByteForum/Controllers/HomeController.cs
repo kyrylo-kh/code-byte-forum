@@ -25,7 +25,7 @@ namespace CodeByteForum.Controllers
 
         public async Task<IActionResult> Index(string searchTitle)
         {
-            IQueryable<Post> posts = db.Posts.Include(s => s.Sender);
+            IQueryable<Post> posts = db.Posts.Include(s => s.Sender).OrderByDescending(p => p.PublishDate);
             if(!String.IsNullOrEmpty(searchTitle))
             {
                 posts = posts.Where(p => p.Title.Contains(searchTitle));
@@ -33,7 +33,7 @@ namespace CodeByteForum.Controllers
 
             PostsListViewModel viewModel = new PostsListViewModel
             {
-                Posts = posts.ToList(),
+                Posts = await posts.ToListAsync(),
                 SearchTitle = searchTitle
             };
 

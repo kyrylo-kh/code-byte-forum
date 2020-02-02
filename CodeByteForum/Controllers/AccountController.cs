@@ -119,15 +119,7 @@ namespace CodeByteForum.Controllers
             return NotFound();
         }    
 
-        //public async Task<IActionResult> Settings()
-        //{
-        //    User _user = await _userManager.FindByNameAsync(User.Identity.Name);
-        //    return View(new SettingsViewModel
-        //    {
-        //        Email = _user.Email,
-        //        Login = _user.Login
-        //    });
-        //}
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Settings (ProfileViewModel model)
@@ -139,7 +131,7 @@ namespace CodeByteForum.Controllers
             model.User = _user;
             if (ModelState.IsValid)
             {
-                
+
                 if (model.OldPassword != null && model.NewPassword != null)
                 {
                     if (await _userManager.CheckPasswordAsync(_user, model.OldPassword))
