@@ -55,7 +55,7 @@
                 </ul>
             </div>
             <div class="account-posts flex-grow-1">
-                @if (Model.InfoItem == "Posts" || Model.InfoItem == null)
+                @if (Model.Tab == "Posts" || Model.Tab == null)
                 {
                     @if (Model.Posts.Count > 0)
                     {
@@ -79,7 +79,7 @@
                     }
                 }
 
-                @if (Model.InfoItem == "Info")
+                @if (Model.Tab == "Info")
                 {
                     <p>Почта: @Model.Email</p>
                     <p>Логин: @Model.Login</p>
@@ -87,9 +87,9 @@
                     <p>Количество ответов: @Model.Answers.Count</p>
                 }
 
-                @if (Model.InfoItem == "Settings")
+                @if (Model.Tab == "Settings")
                 {
-                    <form>
+                    <form asp-action="ChangeInfo">
                         <div asp-validation-summary="ModelOnly"></div>
                         <p><label>Почта: <input asp-for="@Model.Email" /></label></p>
                         <p><label>Логин: <input asp-for="@Model.Login" /></label></p>

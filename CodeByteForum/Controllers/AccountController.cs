@@ -101,10 +101,11 @@ namespace CodeByteForum.Controllers
 
         public async Task<IActionResult> Profile(string? login, string infoItem)
         {
+            
             User _user = await db.Users
                 .Include(p => p.Posts)
                 .Include(a => a.Answers)
-                .FirstOrDefaultAsync(i => i.Login == login);
+                .FirstOrDefaultAsync(i => i.Email == login);
             if (_user != null)
             {
                 return View(new ProfileViewModel { 
@@ -112,14 +113,14 @@ namespace CodeByteForum.Controllers
                     Login = _user.Login,
                     Posts = _user.Posts,
                     Answers = _user.Answers,
-                    InfoItem = infoItem
+                    Tab = infoItem
                 });
             }
             return NotFound();
         }    
 
         [HttpPost]
-        public async Task<IActionResult> Profile(ProfileViewModel model)
+        public async Task<IActionResult> ChangeInfo (ProfileViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -137,7 +138,7 @@ namespace CodeByteForum.Controllers
                             Login = _user.Login,
                             Posts = _user.Posts,
                             Answers = _user.Answers,
-                            InfoItem = model.InfoItem
+                            Tab = model.Tab
                         });
                     }
                     else

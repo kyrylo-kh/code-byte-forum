@@ -10,7 +10,7 @@ namespace CodeByteForum.ViewModels
         public string Email { get; set; }
         public List<Post> Posts { get; set; }
         public List<Answer> Answers { get; set; }
-        public string InfoItem { get; set; }
+        public string Tab { get; set; }
         [DataType(DataType.Password)]
         public string OldPassword { get; set; }
         [DataType(DataType.Password)]
