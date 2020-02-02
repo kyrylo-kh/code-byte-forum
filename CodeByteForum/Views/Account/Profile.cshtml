@@ -3,115 +3,52 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Аккаунт";
 }
-
+@section Styles {
+    <link href="@Url.Content("~/css/account.css")" rel="stylesheet" type="text/css" />
+}
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <style>
-        .container {
-            padding: 0 2% 0 2%;
-        }
-        h1.active {
-            padding: 1% 0 1% 0;
-            background-color: aqua;
-            display: block;
-            font-size: 1.5em;
-        }
-        .account-settings{
-            font-size: 1.2em;
-            border: 3px solid black;
-            border-radius: 5%;
-            padding: 2%;
-        }
-        .account-settings h2 {
-            border-bottom: 2px solid black;
-        }
-        .account-posts {
-            margin-left: 4%;
-        }
-        .account {
-            padding-top: 2%;
-        }
-        li {
-            text-decoration: none;
-            list-style: none;
-        }
-
-    </style>
 </head>
 <body>
     <div class="container">
         <h1 class="active" align="center">Информация о @Model.User.Login</h1>
         <div class="account d-flex justify-content-between">
-            <div class="account-settings">
-                <h2>Вкладки</h2>
-                <ul>
-                    <li><a asp-route-login="@Model.User.Login" asp-route-tab="Posts">Посты</a></li>
-                    <li><a asp-route-login="@Model.User.Login" asp-route-tab="Info">Информация</a></li>
-                    <li><a asp-route-login="@Model.User.Login" asp-route-tab="Settings">Настройки</a></li>
-                </ul>
+            <div class="flex-shrink-1 flex-grow-1">
+                @if (Model.User.Posts?.Count > 0)
+                {
+                    <ul class="list-group" align="center">
+                        <li class="list-group-item active">Посты от пользователя</li>
+                        @foreach (Post post in Model.User.Posts)
+                        {
+                            <li class="list-group-item">
+                                <a asp-action="Question" asp-controller="Post" asp-route-id="@post.Id">
+                                    @post.Title
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <h3>Пользователь не имеет постов.</h3>
+                }
             </div>
-            <div class="account-posts flex-grow-1">
-                @if (Model.Tab == "Posts" || Model.Tab == null)
+            <div class="account-info">
+                <p>Почта: @Model.User.Email</p>
+                <p>Логин: @Model.User.Login</p>
+                <p>Количество постов: @Model.User.Posts.Count</p>
+                <p>Количество ответов: @Model.User.Answers.Count</p>
+                @if (Model.User.Login == User.Identity.Name)
                 {
-                    @if (Model.User.Posts?.Count > 0)
-                    {
-                        <ul class="list-group" align="center">
-                            <li class="list-group-item active">Посты от пользователя</li>
-                            @foreach (Post post in Model.User.Posts)
-                            {
-                                <li class="list-group-item">
-                                    <a asp-action="Question"
-                                       asp-controller="Post"
-                                       asp-route-id="@post.Id">
-                                        @post.Title
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <h3>Пользователь не имеет постов.</h3>
-                    }
-                }
-
-                @if (Model.Tab == "Info")
-                {
-                    <p>Почта: @Model.User.Email</p>
-                    <p>Логин: @Model.User.Login</p>
-                    <p>Количество постов: @Model.User.Posts.Count</p>
-                    <p>Количество ответов: @Model.User.Answers.Count</p>
-                }
-
-                @if (Model.Tab == "Settings")
-                {
-                    <div>
-                    </div>
-                    
-                    <form asp-action="ChangeInfo">
-                        <div asp-validation-summary="ModelOnly"></div>
-                        <p><label>Почта: <input asp-for="@Model.User.Email" /></label></p>
-                        <span asp-validation-for="@Model.User.Email"></span>
-                        <p><label>Логин: <input asp-for="@Model.User.Login" /></label></p>
-                        <span asp-validation-for="@Model.User.Login"></span>
-                        <p><label>Старый пароль: <input asp-for="@Model.OldPassword" /></label></p>
-                        <span asp-validation-for="@Model.OldPassword"></span>
-                        <p><label>Новый пароль: <input asp-for="@Model.NewPassword" /></label></p>
-                        <span asp-validation-for="@Model.NewPassword"></span>
-                        <p><label>Подтвердите пароль: <input asp-for="@Model.ConfirmPassword" /></label></p>
-                        <span asp-validation-for="@Model.ConfirmPassword"></span>
-                        <p><input type="hidden" asp-for="@Model.Tab"/></p>
-                        <p><input type="submit" value="Сохранить" /></p>
-                    </form>
-
+                    <p><a asp-action="Settings">Настройки</a></p>
                 }
             </div>
         </div>
     </div>
-    
-    </body>
+
+</body>
 </html>

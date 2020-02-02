@@ -102,9 +102,9 @@ namespace CodeByteForum.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Profile(string login, string tab)
+        public async Task<IActionResult> Profile(string login)
         {
-            
+            login = string.IsNullOrEmpty(login) ? User.Identity.Name : login;
             User _user = await db.Users
                 .Include(p => p.Posts)
                 .Include(a => a.Answers)
@@ -113,16 +113,42 @@ namespace CodeByteForum.Controllers
             {
                 return View(new ProfileViewModel { 
                     User = _user,
-                    Tab = tab
+                    
                 });
             }
             return NotFound();
         }    
 
-        [HttpPost]
-        public async Task<IActionResult> ChangeInfo (ProfileViewModel model)
+        public async Task<IActionResult> Settings()
         {
-            return View("Profile");
+            User _user = await _userManager.FindByNameAsync(User.Identity.Name);
+            return View(new SettingsViewModel
+            {
+                Email = _user.Email,
+                Login = _user.Login
+            });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Settings (SettingsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User _user = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (await _userManager.CheckPasswordAsync(_user, model.OldPassword)) {
+                    var result = await _userManager.ChangePasswordAsync(_user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        if (_user.Email != model.Email)
+                            await _userManager.SetEmailAsync(_user, model.Email);
+                        if (_user.Login != model.Login)
+                            await _userManager.SetUserNameAsync(_user, model.Login);
+                        await _userManager.UpdateAsync(_user);
+                        return RedirectToAction("Profile");
+                    }
+                }
+            }
+            return View(model);
         }
     }
 }

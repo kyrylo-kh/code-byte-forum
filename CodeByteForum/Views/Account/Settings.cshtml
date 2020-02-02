@@ -1,0 +1,26 @@
+﻿@model CodeByteForum.ViewModels.SettingsViewModel;
+@{
+    ViewData["Title"] = "Settings";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/account.css")" rel="stylesheet" type="text/css" />
+}
+
+<h1 class="text-center">Настройки</h1>
+<div class="container">
+    <form asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly"></div>
+        <p><label>Почта: <input asp-for="@Model.Email" /></label></p>
+        <span asp-validation-for="@Model.Email"></span>
+        <p><label>Логин: <input asp-for="@Model.Login" /></label></p>
+        <span asp-validation-for="@Model.Login"></span>
+        <p><label>Старый пароль: <input asp-for="@Model.OldPassword" /></label></p>
+        <span asp-validation-for="@Model.OldPassword"></span>
+        <p><label>Новый пароль: <input asp-for="@Model.NewPassword" /></label></p>
+        <span asp-validation-for="@Model.NewPassword"></span>
+        <p><label>Подтвердите пароль: <input asp-for="@Model.ConfirmPassword" /></label></p>
+        <span asp-validation-for="@Model.ConfirmPassword"></span>
+        <p><input type="submit" value="Сохранить" /></p>
+    </form>
+</div>
