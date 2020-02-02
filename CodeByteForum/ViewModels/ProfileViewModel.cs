@@ -5,11 +5,7 @@ namespace CodeByteForum.ViewModels
 {
     public class ProfileViewModel
     {
-     //   public User User { get; set; }
-        public string Login { get; set; }
-        public string Email { get; set; }
-        public List<Post> Posts { get; set; }
-        public List<Answer> Answers { get; set; }
+        public User User { get; set; }
         public string Tab { get; set; }
         [DataType(DataType.Password)]
         public string OldPassword { get; set; }
@@ -18,5 +14,6 @@ namespace CodeByteForum.ViewModels
         [DataType(DataType.Password)]
         [Compare("NewPassword")]
         public string ConfirmPassword { get; set; }
+        //public bool isInfoChanged { get; set; }
     }
 }

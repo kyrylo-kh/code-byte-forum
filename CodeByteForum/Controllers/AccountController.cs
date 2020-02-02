@@ -34,7 +34,7 @@ namespace CodeByteForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email,
+                User user = new User { Email = model.Email, UserName = model.Login,
                                        Login = model.Login};
                 // Добавляем пользователя.
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -67,9 +67,12 @@ namespace CodeByteForum.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                    return RedirectToAction("Login");
                 var result =
                     await _signInManager
-                    .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                    .PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
                     // проверяем, принадлежит ли URL приложению
@@ -99,21 +102,18 @@ namespace CodeByteForum.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Profile(string? login, string infoItem)
+        public async Task<IActionResult> Profile(string login, string tab)
         {
             
             User _user = await db.Users
                 .Include(p => p.Posts)
                 .Include(a => a.Answers)
-                .FirstOrDefaultAsync(i => i.Email == login);
+                .FirstOrDefaultAsync(i => i.Login == login);
             if (_user != null)
             {
                 return View(new ProfileViewModel { 
-                    Email = _user.Email,
-                    Login = _user.Login,
-                    Posts = _user.Posts,
-                    Answers = _user.Answers,
-                    Tab = infoItem
+                    User = _user,
+                    Tab = tab
                 });
             }
             return NotFound();
@@ -122,39 +122,7 @@ namespace CodeByteForum.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeInfo (ProfileViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                User _user = await db.Users
-                .Include(p => p.Posts)
-                .Include(a => a.Answers)
-                .FirstOrDefaultAsync(i => i.Login == model.Login);
-                if (_user != null)
-                {
-                    var result = await _userManager.ChangePasswordAsync(_user, model.OldPassword, model.NewPassword);
-                    if (result.Succeeded)
-                    {
-                        return View(new ProfileViewModel {
-                            Email = _user.Email,
-                            Login = _user.Login,
-                            Posts = _user.Posts,
-                            Answers = _user.Answers,
-                            Tab = model.Tab
-                        });
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
-                }
-            }
-            return View(model);
+            return View("Profile");
         }
     }
 }
