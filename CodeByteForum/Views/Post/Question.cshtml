@@ -2,58 +2,72 @@
 @{
     ViewData["Title"] = Model.Post.Title;
 }
-    <div>
-        <h6>Автор: 
-            <a asp-action="Profile" 
-               asp-controller="Account" 
-               asp-route-login="@Model.Sender.Login">
-                @Model.Sender.Login
-            </a>
-        </h6>
-        <h6>Дата создания: @Model.Post.PublishDate.ToString("dd/MM/yyyy HH:mm")</h6>
-        <h6>Ответов: @Model.Post.AnswerCount</h6>
-        <h6>Просмотров: @Model.Post.ViewsCount</h6>
-        <dl class="dl-horizontal" style="border: 2px solid black; padding: 10px">
-            <dt align="center"><h2>@Model.Post.Title</h2></dt>
-            <dd>@Model.Post.Text</dd>
-        </dl>
-        <dl class="dl-horizontal">
-            <dt align="center">
-                <h4>Оставить комментарий:</h4> <br />
-            </dt>
-
-            <dd>
-                <form asp-action="Question" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group" style="width: 100%">
-                        <textarea name="_Text" class="form-control"></textarea>
+@section Styles {
+    <link href="@Url.Content("~/css/post-view.css")" rel="stylesheet" type="text/css" />
+}
+<div class="container">
+    <div class="post-main">
+        <div class="info-block">
+            <h6>
+                Автор:
+                <a asp-action="Profile"
+                   asp-controller="Account"
+                   asp-route-login="@Model.Sender.Login">
+                    @Model.Sender.Login
+                </a>
+            </h6>
+            <h6>Дата создания: @Model.Post.PublishDate.ToString("dd/MM/yyyy HH:mm")</h6>
+        </div>
+        <h2 class="title">@Model.Post.Title</h2>
+        <div class="main-text">
+            @Model.Post.Text
+        </div>
+        <div class="info-block">
+            <h6>Просмотров: @Model.Post.ViewsCount</h6>
+            <h6>Ответов: @Model.Post.AnswerCount</h6>
+        </div>
+        @foreach (Answer comment in Model.Answers)
+        {
+            <hr class="line" />
+            <div class="comment-inner">
+                <div class="comment-userInfo">
+                    <div class="comment-userAvatar"></div>
+                    <div class="comment-userInfo-text">
+                        <a asp-action="Profile"
+                           asp-controller="Account"
+                           asp-route-login="@comment.Sender.Login">
+                            @comment.Sender.Login
+                        </a>
                     </div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="form-group">
-                            <input type="submit" value="Оставить комментарий" class="btn btn-dark" asp-route-id="@Model.Post.Id" />
-                        </div>
-                    }
-                    else
-                    {
-                         <a asp-action="Login" asp-controller="Account">Войдите, чтобы оставить комментарий</a>
-                    }
+                </div>
+                <div class="comment-main">
+                    <span>@comment.PublishDate.ToString("dd/MM/yyyy HH:mm")</span>
+                    @comment.Text
+                </div>
+            </div>
+        }
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="create-comment-main">
+            <div class="comment-inner" style="padding-top:20px;">
+                <div class="comment-userInfo">
+                    <div class="comment-userAvatar"></div>
+                    <div class="comment-userInfo-text">
+                    </div>
+                </div>
+                <form asp-action="Question" asp-controller="Post" method="post">
+                    <div class="comment-main">
+                        <textarea name="_Text" class="textarea"></textarea>
+                    </div>
+                    <div align="right">
+                        <input type="submit" 
+                               value="Ответить" 
+                               class="submit-create-comment" 
+                               asp-route-id="@Model.Post.Id" />
+                    </div>
                 </form>
-            </dd>
-        </dl>
-        @if (Model.Answers.Count > 0)
-        {
-            @foreach (Answer comment in Model.Answers)
-            {
-                <dl class="dl-horizontal" style="border: 2px solid black; padding: 10px">
-                    <dt align="center"><h5>Комментарий от @comment.Sender.Email</h5></dt>
-                    <dd>@comment.Text</dd>
-                </dl>
-            }
-        }
-        else
-        {
-            <br />
-            <h4>Комментариев пока что нет</h4>
-        }
+            </div>
+        </div>
+    }
 </div>

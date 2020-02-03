@@ -1,0 +1,125 @@
+﻿div {
+    display: block;
+}
+
+.container {
+    min-height: 70vh;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.post-main {
+    background-color: #FCFCFC;
+    border-radius: 20px;
+    padding: 0px 20px 20px;
+    box-shadow: 0 4px 15px 0 rgba(112, 112, 112, 0.2);
+}
+
+.info-block {
+    padding-top: 20px;
+    margin-left: 20px;
+    font-size: 16px;
+    line-height: 1.56;
+    font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+    color: #222;
+}
+
+.title {
+    font-family: 'Fira Sans',sans-serif;
+    color: #343434;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.main-text {
+    margin: 20px;
+    color: #222;
+    font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1.56;
+}
+
+.line {
+    height: 4px;
+    border-radius: 8px;
+    background: #EDEDED;
+    left: 16px;
+    right: 16px;
+    display: block;
+}
+
+.comment-inner {
+    display: flex;
+}
+
+.comment-main span {
+    color: #a0afce;
+    font-size: 12px;
+    height: 20px;
+    width: 100%;
+}
+
+.comment-userInfo {
+    width: 15%;
+    height: 250px;
+}
+
+.comment-userInfo-text {
+    color: #2669A2;
+    text-decoration: none;
+    text-align: center;
+}
+
+.comment-userAvatar {
+    width: 96px;
+    height: 96px;
+    background-color: rgba(112, 112, 112, 0.2);
+    border-radius: 100px;
+    margin: auto;
+}
+
+.comment-main {
+    flex-direction: column;
+    display: flex;
+    width: 85%;
+    font-size: 13px;
+}
+
+.textarea {
+    height: 150px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 95vh;
+}
+
+.create-comment-main {
+    background-color: #FCFCFC;
+    border-radius: 20px;
+    padding: 0px 20px 20px;
+    box-shadow: 0 4px 15px 0 rgba(112, 112, 112, 0.2);
+    margin-top: 20px;
+}
+
+.submit-create-comment {
+    height: 35px;
+    color: #fff;
+    background: #2669A2;
+    box-shadow: 0 4px 15px 0 rgba(112,112,112,0.2);
+    border: none;
+    background: linear-gradient(#2669a2, #1c4e79);
+    border-color: #1e5481;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.submit-create-comment:hover {
+    color: #fff;
+    box-shadow: 0 4px 15px 0 rgba(112,112,112,0.2);
+    background: linear-gradient(#215c8d, #174164);
+}

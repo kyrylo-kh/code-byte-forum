@@ -36,7 +36,9 @@ p:first-child {
 }
 
 .main {
-    margin-top: -60px;
+    background-color: #FCFCFC;
+    border-radius: 0 0 20px 20px;
+    padding: 0px 20px 20px;
 }
 
 .title {
@@ -88,3 +90,17 @@ p:first-child {
     background-color: black;
     color: white;
 }
+
+.header {
+    width: 100%;
+    margin-bottom: -20px;
+    margin-top: 100px;
+    height: 40px;
+    font-family: Verdana, Arial, sans-serif;
+    background: linear-gradient(#2669a2, #1c4e79);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 15px 15px 0 0;
+}
+
