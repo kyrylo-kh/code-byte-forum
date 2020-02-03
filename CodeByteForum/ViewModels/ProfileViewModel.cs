@@ -6,7 +6,8 @@ namespace CodeByteForum.ViewModels
     public class ProfileViewModel
     {
         public User User { get; set; }
-
+        [DataType(DataType.EmailAddress)]
+        public string NewEmail { get; set; }
         [DataType(DataType.Password)]
         public string OldPassword { get; set; }
         [DataType(DataType.Password)]

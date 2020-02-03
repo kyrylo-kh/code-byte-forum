@@ -141,12 +141,14 @@ namespace CodeByteForum.Controllers
                     else
                     {
                         ModelState.AddModelError("OldPassword", "Вы ввели неправильный пароль");
+                        return View("Profile", model);
                     }
-                    return View("Profile", model);
                 }
-                if (model.User.Email != _user.Email)
+                if (model.NewEmail != _user.Email)
                 {
-                    await _userManager.SetEmailAsync(_user, model.User.Email);
+                    var result = await _userManager.SetEmailAsync(_user, model.NewEmail);
+                    if (!result.Succeeded)
+                        ModelState.AddModelError("Email", "Не пошло...");
                 }
                 return View("Profile", model);
             }

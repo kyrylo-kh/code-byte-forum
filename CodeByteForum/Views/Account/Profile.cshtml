@@ -54,7 +54,7 @@
                     <form asp-antiforgery="true" asp-action="Settings">
                         <div asp-validation-summary="ModelOnly"></div>
                         <div id="email-change-form">
-                            <p><label>Почта: <br /><input asp-for="@Model.User.Email" /></label></p>
+                            <p><label>Почта: <br /><input asp-for="@Model.NewEmail" value="@Model.User.Email"/></label></p>
                             <span asp-validation-for="@Model.User.Email"></span>
                         </div>
                         <div id="password-change-form">
@@ -125,6 +125,12 @@
             else
                 saveDiv.style.display = "none";
         }
+
+        var email = document.getElementById("User_Email");
+        email.addEventListener("input", () => {
+            email.value = email.value;
+            console.log(email.value);
+        })
     </script>
 </body>
 </html>
