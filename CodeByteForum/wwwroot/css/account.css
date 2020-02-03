@@ -1,5 +1,6 @@
 ﻿.container {
     padding: 0 2% 0 2%;
+    min-height: 70vh;
 }
 
 h1.active {
@@ -15,8 +16,21 @@ h1.active {
     border-radius: 5%;
     padding: 1%;
     margin-left: 2%;
+    min-width: 30%;
 }
 
 .account {
     padding-top: 2%;
+}
+
+#change-info {}
+
+#password-change-form {
+    display: none;
+}
+#email-change-form {
+    display: none;
+}
+#save-div {
+    display: none;
 }
