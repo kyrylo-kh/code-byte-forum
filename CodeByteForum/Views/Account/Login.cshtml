@@ -2,26 +2,36 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Вход в приложение</h2>
-<form method="post" asp-controller="Account" asp-action="Login"
-      asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
+@section Styles {
+    <link href="@Url.Content("~/css/account-login.css")" rel="stylesheet" type="text/css" />
+}
+<div class="container">
+    <div class="login-main" align="center">
+        <h3 class="group">Вход</h3>
+        <br />
+        <form method="post" asp-controller="Account" asp-action="Login"
+              asp-route-returnUrl="@Model.ReturnUrl">
+            <div asp-validation-summary="ModelOnly"></div>
+            <table>
+                <tr>
+                    <td align="right">Email: </td>
+                    <td><input class="input" asp-for="Email" /></td>
+                    <span asp-validation-for="Email"></span>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px" align="right">Пароль: </td>
+                    <td style="padding-top:20px"><input class="input" asp-for="Password" /></td>
+                    <span asp-validation-for="Password"></span>
+                </tr>
+            </table>
+            <div class="group checkbox">
+                Запомнить?
+                <input asp-for="RememberMe" />
+            </div>
+            <div>
+                <input type="submit" class="submit" value="Войти" />
+            </div>
+        </form>
+        Нет аккаунта? <a asp-controller="Account" asp-action="Register">Регистрация</a>
     </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />
-    </div>
-    <div>
-        <input type="submit" value="Войти" />
-    </div>
-</form>
-Нет аккаунта? <a asp-controller="Account" asp-action="Register">Регистрация</a>
+</div>

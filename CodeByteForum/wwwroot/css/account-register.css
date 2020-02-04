@@ -1,0 +1,13 @@
+﻿.register-main {
+    background-color: #FCFCFC;
+    border-radius: 20px;
+    padding: 0px 20px 20px;
+    box-shadow: 0 4px 15px 0 rgba(112, 112, 112, 0.2);
+    width: 60vh;
+    margin: auto;
+    color: #384764;
+}
+
+.pad-top {
+    padding-top: 20px
+}

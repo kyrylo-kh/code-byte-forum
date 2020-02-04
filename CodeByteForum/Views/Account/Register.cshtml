@@ -1,31 +1,42 @@
 ﻿@model CodeByteForum.ViewModels.RegisterViewModel
-@{ 
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Login"></label><br />
-        <input asp-for="Login" />
-        <span asp-validation-for="Login"></span>
+@section Styles {
+    <link href="@Url.Content("~/css/account-login.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/account-register.css")" rel="stylesheet" type="text/css" />
+}
+<div class="container">
+    <div class="register-main" align="center">
+        <h3 class="group">Регистрация нового пользователя</h3>
+        <br />
+        <form method="post" asp-controller="Account" asp-action="Register">
+            <div asp-validation-summary="ModelOnly"></div>
+            <table>
+                <tr>
+                    <td align="left">Логин: </td>
+                    <td><input class="input" asp-for="Login" /></td>
+                    <span asp-validation-for="Login"></span>
+                </tr>
+                <tr>
+                    <td align="left" class="pad-top">Email: </td>
+                    <td class="pad-top"><input class="input" asp-for="Email" /></td>
+                    <span asp-validation-for="Email"></span>
+                </tr>
+                <tr>
+                    <td align="left" class="pad-top">Пароль: </td>
+                    <td class="pad-top"><input class="input" asp-for="Password" /></td>
+                    <span asp-validation-for="Password"></span>
+                </tr>
+                <tr>
+                    <td align="left" class="pad-top">Подтвердите пароль: </td>
+                    <td class="pad-top"><input class="input" asp-for="PasswordConfirm" /></td>
+                    <span asp-validation-for="PasswordConfirm"></span>
+                </tr>
+            </table>
+            <div>
+                <input type="submit" class="submit" value="Регистрация" />
+            </div>
+        </form>
     </div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-    <div>
-        <input type="submit" value="Регистрация" />
-    </div>
-</form>
+</div>

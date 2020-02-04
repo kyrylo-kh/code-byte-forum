@@ -8,16 +8,13 @@ namespace CodeByteForum.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
+        [Required(ErrorMessage = "Введите Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите пароль")]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить?")]
         public bool RememberMe { get; set; }
 
         public string ReturnUrl { get; set; }
