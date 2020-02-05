@@ -36,9 +36,16 @@
                     </div>
 
                     <div class="group">
-                        <span asp-validation-for="Text" class="text-danger"></span>
-                        <p class="title">Текст:</p>
-                        <textarea asp-for="Text" cols="30" rows="7"></textarea>
+                        <div class="toolbar">
+                            <button type="button" title="Жирный" onclick="pasteTag('b')" class="format-button">B</button>
+                            <button type="button" title="Самый большой" onclick="pasteTag('h1')" class="format-button">H1</button>
+                            <button type="button" title="Большой" onclick="pasteTag('h2')" class="format-button">H2</button>
+                            <button type="button" title="Средний" onclick="pasteTag('h3')" class="format-button">H3</button>
+                            <button type="button" title="Маленький" onclick="pasteTag('h4')" class="format-button">H4</button>
+                        </div>
+
+                        <textarea id="text" class="textarea" asp-for="Text"></textarea>
+                        <script src="~/js/text-editor.js"></script>
                     </div>
 
                     <div class="group">

@@ -20,7 +20,7 @@
         </div>
         <h2 class="title">@Model.Post.Title</h2>
         <div class="main-text">
-            @Model.Post.Text
+            @Html.Raw(Model.Post.Text)
         </div>
         <div class="info-block">
             <h6>Просмотров: @Model.Post.ViewsCount</h6>
