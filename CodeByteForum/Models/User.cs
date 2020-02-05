@@ -11,5 +11,6 @@ namespace CodeByteForum.Models
         public List<Post> Posts { get; set; }
         public List<Answer> Answers { get; set; }
         public string Login { get; set; }
+        public AvatarModel Avatar { get; set; } = new AvatarModel { Name = "DefaultAvatar", Path = "/Files/DefaultAvatar.png" };
     }
 }

@@ -34,3 +34,7 @@ h1.active {
 #save-div {
     display: none;
 }
+
+span {
+    color: red;
+}

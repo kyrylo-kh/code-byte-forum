@@ -1,4 +1,5 @@
 ﻿using CodeByteForum.Models;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace CodeByteForum.ViewModels
@@ -16,5 +17,6 @@ namespace CodeByteForum.ViewModels
         [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "Введенные пароли не совпадают")]
         public string ConfirmPassword { get; set; }
+        public IFormFile AvatarFile { get; set; }
     }
 }
