@@ -8,6 +8,8 @@ using CodeByteForum.Models;
 using CodeByteForum.ViewModels;
 using CodeByteForum.Data;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CodeByteForum.Controllers
 {
@@ -16,13 +18,15 @@ namespace CodeByteForum.Controllers
         private readonly ApplicationContext db;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IWebHostEnvironment _environment;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
-            ApplicationContext context)
+            ApplicationContext context, IWebHostEnvironment environment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             db = context;
+            _environment = environment;
         }
         [HttpGet]
         public IActionResult Register()
@@ -106,9 +110,10 @@ namespace CodeByteForum.Controllers
         {
             login = string.IsNullOrEmpty(login) ? User.Identity.Name : login;
             User _user = await db.Users
-                .Include(p => p.Posts)
-                .Include(a => a.Answers)
-                .FirstOrDefaultAsync(i => i.Login == login);
+                .Include(u => u.Posts)
+                .Include(u => u.Answers)
+                .Include(u => u.Avatar)
+                .FirstOrDefaultAsync(u => u.Login == login);
             if (_user != null)
             {
                 return View(new ProfileViewModel { 
@@ -127,6 +132,7 @@ namespace CodeByteForum.Controllers
             User _user = await db.Users
                     .Include(u => u.Answers)
                     .Include(u => u.Posts)
+                    .Include(u => u.Avatar)
                     .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
             model.User = _user;
             if (ModelState.IsValid)
@@ -149,6 +155,25 @@ namespace CodeByteForum.Controllers
                     var result = await _userManager.SetEmailAsync(_user, model.NewEmail);
                     if (!result.Succeeded)
                         ModelState.AddModelError("Email", "Не пошло...");
+                }
+                if (model.AvatarFile != null)
+                {
+                    if (model.AvatarFile.ContentType == "image/jpeg" || model.AvatarFile.ContentType == "image/pjpeg"
+                        || model.AvatarFile.ContentType == "image/png" || model.AvatarFile.ContentType == "image/svg+xml")
+                    {
+                        string path = "/Files/" + model.AvatarFile.FileName;
+                        using (var fileStream = new FileStream(_environment.WebRootPath + path, FileMode.Create))
+                        {
+                            await model.AvatarFile.CopyToAsync(fileStream);
+                        }
+                        _user.Avatar = new AvatarModel { Name = model.AvatarFile.FileName, Path = path };
+                        await db.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("AvatarFile", "Вы выбрали не фото");
+                    }
+                    
                 }
                 return View("Profile", model);
             }

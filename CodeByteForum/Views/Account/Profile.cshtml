@@ -39,21 +39,24 @@
             </div>
             <div class="account-info">
                 <div>
+                    <p><img width="100" height="100" src="@Url.Content(Model.User.Avatar.Path)" /></p>
                     <p>Почта: @Model.User.Email</p>
                     <p>Логин: @Model.User.Login</p>
                     <p>Количество постов: @Model.User.Posts.Count</p>
                     <p>Количество ответов: @Model.User.Answers.Count</p>
                     @if (Model.User.Login == User.Identity.Name)
                     {
-                        <button id="email-change-btn">Сменить почту</button>
+                        <button id="email-change-btn">Сменить почту/аву</button>
                         <button id="password-change-btn">Сменить пароль</button>
 
                     }
                 </div>
                 <div id="change-info">
-                    <form asp-antiforgery="true" asp-action="Settings">
+                    <form asp-antiforgery="true" asp-action="Settings" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly"></div>
                         <div id="email-change-form">
+                            <p><label>Аватар: <br /><input type="file" name="AvatarFile" /></label></p>
+                            <span asp-validation-for="@Model.AvatarFile"></span>
                             <p><label>Почта: <br /><input asp-for="@Model.NewEmail" value="@Model.User.Email"/></label></p>
                             <span asp-validation-for="@Model.User.Email"></span>
                         </div>
