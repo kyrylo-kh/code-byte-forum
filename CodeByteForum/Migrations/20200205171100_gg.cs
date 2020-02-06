@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodeByteForum.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class gg : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -154,6 +154,27 @@ namespace CodeByteForum.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AvatarModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true),
+                    OwnerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvatarModel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AvatarModel_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -261,6 +282,11 @@ namespace CodeByteForum.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AvatarModel_OwnerId",
+                table: "AvatarModel",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_SenderId",
                 table: "Posts",
                 column: "SenderId");
@@ -285,6 +311,9 @@ namespace CodeByteForum.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AvatarModel");
 
             migrationBuilder.DropTable(
                 name: "Posts");

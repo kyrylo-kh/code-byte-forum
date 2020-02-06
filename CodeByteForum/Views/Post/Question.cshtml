@@ -31,7 +31,9 @@
             <hr class="line" />
             <div class="comment-inner">
                 <div class="comment-userInfo">
-                    <div class="comment-userAvatar"></div>
+                    <div class="comment-userAvatar">
+                        <img width="100" height="100" src="@Url.Content(Model.Sender.Avatars.Last().Path)"  />
+                    </div>
                     <div class="comment-userInfo-text">
                         <a asp-action="Profile"
                            asp-controller="Account"
@@ -52,7 +54,9 @@
         <div class="create-comment-main">
             <div class="comment-inner" style="padding-top:20px;">
                 <div class="comment-userInfo">
-                    <div class="comment-userAvatar"></div>
+                    <div class="comment-userAvatar">
+                        <img width="100" height="100" src="@Url.Content(Model.Sender.Avatars.Last().Path)" />
+                    </div>
                     <div class="comment-userInfo-text">
                     </div>
                 </div>

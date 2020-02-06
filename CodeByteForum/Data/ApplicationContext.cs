@@ -14,6 +14,7 @@ namespace CodeByteForum.Data
     {
         public DbSet<Post> Posts { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<AvatarModel> Avatars { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
@@ -32,6 +33,8 @@ namespace CodeByteForum.Data
                 .Entity<Post>()
                 .Property(p => p.Tags)
                 .HasConversion(splitStringConverter);
+
+            
         }
     }
 }

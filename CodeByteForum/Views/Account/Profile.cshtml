@@ -38,8 +38,8 @@
                 }
             </div>
             <div class="account-info">
-                <div>
-                    <p><img width="100" height="100" src="@Url.Content(Model.User.Avatar.Path)" /></p>
+                <div class="current-info">
+                    <p><img width="100" height="100" src="@Url.Content(Model.User.Avatars.Last().Path)" /></p>
                     <p>Почта: @Model.User.Email</p>
                     <p>Логин: @Model.User.Login</p>
                     <p>Количество постов: @Model.User.Posts.Count</p>

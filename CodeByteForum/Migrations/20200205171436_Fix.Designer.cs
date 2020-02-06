@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeByteForum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200205143500_AddedAvatars")]
-    partial class AddedAvatars
+    [Migration("20200205171436_Fix")]
+    partial class Fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,12 +62,17 @@ namespace CodeByteForum.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AvatarModel");
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Avatars");
                 });
 
             modelBuilder.Entity("CodeByteForum.Models.Post", b =>
@@ -125,9 +130,6 @@ namespace CodeByteForum.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AvatarId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -176,8 +178,6 @@ namespace CodeByteForum.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AvatarId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -334,18 +334,18 @@ namespace CodeByteForum.Migrations
                         .HasForeignKey("SenderId");
                 });
 
+            modelBuilder.Entity("CodeByteForum.Models.AvatarModel", b =>
+                {
+                    b.HasOne("CodeByteForum.Models.User", "Owner")
+                        .WithMany("Avatars")
+                        .HasForeignKey("OwnerId");
+                });
+
             modelBuilder.Entity("CodeByteForum.Models.Post", b =>
                 {
                     b.HasOne("CodeByteForum.Models.User", "Sender")
                         .WithMany("Posts")
                         .HasForeignKey("SenderId");
-                });
-
-            modelBuilder.Entity("CodeByteForum.Models.User", b =>
-                {
-                    b.HasOne("CodeByteForum.Models.AvatarModel", "Avatar")
-                        .WithMany()
-                        .HasForeignKey("AvatarId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

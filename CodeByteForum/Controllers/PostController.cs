@@ -74,6 +74,7 @@ namespace CodeByteForum.Controllers
                     .Include(a => a.Answers)
                         .ThenInclude(s => s.Sender)
                     .Include(u => u.Sender)
+                        .ThenInclude(s => s.Avatars)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 List<Answer> _Answers = post.Answers.OrderByDescending(d => d.PublishDate).ToList();
