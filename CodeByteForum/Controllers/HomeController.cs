@@ -25,8 +25,14 @@ namespace CodeByteForum.Controllers
 
         public async Task<IActionResult> Index(string searchTitle)
         {
-            IQueryable<Post> posts = db.Posts.Include(s => s.Sender).OrderByDescending(p => p.PublishDate);
-            if(!String.IsNullOrEmpty(searchTitle))
+            IQueryable<Post> posts = db.Posts
+                .Include(s => s.Sender)
+                .OrderByDescending(p => p.PublishDate);
+
+            await posts.ForEachAsync(p => p.Text.Replace("<b>", "").Replace("</b>", "").Replace("<h1>", "").Replace("</h1>", "").Replace("<h2>", "").Replace("</h2>", "").Replace("<h3>", "").Replace("</h3>", "").Replace("<h4>", "").Replace("</h4>", ""));
+
+
+            if (!String.IsNullOrEmpty(searchTitle))
             {
                 posts = posts.Where(p => p.Title.Contains(searchTitle));
             }
@@ -35,7 +41,7 @@ namespace CodeByteForum.Controllers
             {
                 Posts = await posts.ToListAsync(),
                 SearchTitle = searchTitle
-            };
+            };  
 
             return View(viewModel);
         }
