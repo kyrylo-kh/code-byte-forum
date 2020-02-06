@@ -15,6 +15,8 @@
     <Compile Remove="Migrations\20200128144324_AddLoginForUser.Designer.cs" />
     <Compile Remove="Migrations\20200128154328_AddLoginForUser.cs" />
     <Compile Remove="Migrations\20200128154328_AddLoginForUser.Designer.cs" />
+    <Compile Remove="Migrations\20200205170424_Fix.cs" />
+    <Compile Remove="Migrations\20200205170424_Fix.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +33,7 @@
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\Files\" />
+    <Folder Include="wwwroot\avatars\" />
   </ItemGroup>
 
 

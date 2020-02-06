@@ -38,3 +38,7 @@ h1.active {
 span {
     color: red;
 }
+
+.current-info img {
+    border-radius: 100%;
+}

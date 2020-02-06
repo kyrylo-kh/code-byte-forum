@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeByteForum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200130124110_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200205171100_gg")]
+    partial class gg
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,29 @@ namespace CodeByteForum.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("CodeByteForum.Models.AvatarModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("AvatarModel");
                 });
 
             modelBuilder.Entity("CodeByteForum.Models.Post", b =>
@@ -309,6 +332,13 @@ namespace CodeByteForum.Migrations
                     b.HasOne("CodeByteForum.Models.User", "Sender")
                         .WithMany("Answers")
                         .HasForeignKey("SenderId");
+                });
+
+            modelBuilder.Entity("CodeByteForum.Models.AvatarModel", b =>
+                {
+                    b.HasOne("CodeByteForum.Models.User", "Owner")
+                        .WithMany("Avatars")
+                        .HasForeignKey("OwnerId");
                 });
 
             modelBuilder.Entity("CodeByteForum.Models.Post", b =>

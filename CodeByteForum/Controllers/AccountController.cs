@@ -44,6 +44,9 @@ namespace CodeByteForum.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    db.Avatars.Add(new AvatarModel { Owner = user, Name = "DefaultAvatar", Path = "~/avatars/DefaultAvatar.png" });
+                    //user.Avatars.Add(new AvatarModel { Name = "DefaultAvatar", Path = "~/avatars/DefaultAvatar.png" });
+                    await db.SaveChangesAsync();
                     // Установка куки.
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
@@ -112,7 +115,7 @@ namespace CodeByteForum.Controllers
             User _user = await db.Users
                 .Include(u => u.Posts)
                 .Include(u => u.Answers)
-                .Include(u => u.Avatar)
+                .Include(u => u.Avatars)
                 .FirstOrDefaultAsync(u => u.Login == login);
             if (_user != null)
             {
@@ -132,7 +135,7 @@ namespace CodeByteForum.Controllers
             User _user = await db.Users
                     .Include(u => u.Answers)
                     .Include(u => u.Posts)
-                    .Include(u => u.Avatar)
+                    .Include(u => u.Avatars)
                     .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
             model.User = _user;
             if (ModelState.IsValid)
@@ -161,12 +164,13 @@ namespace CodeByteForum.Controllers
                     if (model.AvatarFile.ContentType == "image/jpeg" || model.AvatarFile.ContentType == "image/pjpeg"
                         || model.AvatarFile.ContentType == "image/png" || model.AvatarFile.ContentType == "image/svg+xml")
                     {
-                        string path = "/Files/" + model.AvatarFile.FileName;
+                        string path = "/avatars/" + model.AvatarFile.FileName;
                         using (var fileStream = new FileStream(_environment.WebRootPath + path, FileMode.Create))
                         {
                             await model.AvatarFile.CopyToAsync(fileStream);
                         }
-                        _user.Avatar = new AvatarModel { Name = model.AvatarFile.FileName, Path = path };
+                        _user.Avatars.Add(new AvatarModel { Name = model.AvatarFile.FileName, Path = path, Owner = _user });
+                        
                         await db.SaveChangesAsync();
                     }
                     else
