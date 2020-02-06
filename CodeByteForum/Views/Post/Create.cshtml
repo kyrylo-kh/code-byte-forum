@@ -8,64 +8,59 @@
     <link href="@Url.Content("~/css/post-create.css")" rel="stylesheet" type="text/css" />
 }
 <div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <div class="header">
-                <p>Создание нового поста</p>
-            </div>
-            <div class="main">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="group">
-                        <span asp-validation-for="Title" class="text-danger"></span>
-                        <p class="title">Заголовок:</p>
-                        <input asp-for="Title" type="text" />
-                        <p class="description">Кратко и ясно.</p>
-                    </div>
-
-                    <div class="group">
-                        <span asp-validation-for="Topic" class="text-danger"></span>
-                        <p class="title">Выберите тему:</p>
-                        <select asp-for="Topic">
-                            <option value="Не выбрана" disabled selected>Не выбрано</option>
-                            <option value="Программирование">Программирование</option>
-                            <option value="Дизайн">Дизайн</option>
-                            <option value="Архитектура">Архитектура</option>
-                        </select>
-                        <p class="description">Выберите тематику.</p>
-                    </div>
-
-                    <div class="group">
-                        <div class="toolbar">
-                            <button type="button" title="Жирный" onclick="pasteTag('b')" class="format-button">B</button>
-                            <button type="button" title="Самый большой" onclick="pasteTag('h1')" class="format-button">H1</button>
-                            <button type="button" title="Большой" onclick="pasteTag('h2')" class="format-button">H2</button>
-                            <button type="button" title="Средний" onclick="pasteTag('h3')" class="format-button">H3</button>
-                            <button type="button" title="Маленький" onclick="pasteTag('h4')" class="format-button">H4</button>
-                        </div>
-
-                        <textarea id="text" class="textarea" asp-for="Text"></textarea>
-                        <script src="~/js/text-editor.js"></script>
-                    </div>
-
-                    <div class="group">
-                        <span asp-validation-for="Tags" class="text-danger"></span>
-                        <p class="title">Введите теги (через запятую):</p>
-                        <input asp-for="Tags" type="text" />
-                        <p class="description">Регистр будет переведён в нижний.</p>
-                    </div>
-
-                    <div class="group">
-                        <input type="submit" value="Создать" class="btn-create" />
-                    </div>
-                </form>
-                <div>
-                    <a asp-action="Index" asp-controller="Home">Back to List</a>
-                </div>
-            </div>
+    <div class="main-window">
+        <div class="create-header">
+            <p>Создание нового поста</p>
         </div>
-        <div class="col-md-3">
+        <div class="main">
+            <form asp-action="Create" class="create-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="group">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <p class="title">Заголовок:</p>
+                    <input asp-for="Title" type="text" class="input"/>
+                    <p class="description">Кратко и ясно.</p>
+                </div>
 
+                <div class="group">
+                    <span asp-validation-for="Topic" class="text-danger"></span>
+                    <p class="title">Выберите тему:</p>
+                    <select asp-for="Topic" class="input">
+                        <option value="Не выбрана" disabled selected>Не выбрано</option>
+                        <option value="Программирование">Программирование</option>
+                        <option value="Дизайн">Дизайн</option>
+                        <option value="Архитектура">Архитектура</option>
+                    </select>
+                    <p class="description">Выберите тематику.</p>
+                </div>
+
+                <div class="group">
+                    <div class="toolbar">
+                        <button type="button" title="Жирный" onclick="pasteTag('b')" class="format-button">B</button>
+                        <button type="button" title="Самый большой" onclick="pasteTag('h1')" class="format-button">H1</button>
+                        <button type="button" title="Большой" onclick="pasteTag('h2')" class="format-button">H2</button>
+                        <button type="button" title="Средний" onclick="pasteTag('h3')" class="format-button">H3</button>
+                        <button type="button" title="Маленький" onclick="pasteTag('h4')" class="format-button">H4</button>
+                    </div>
+
+                    <textarea id="text" class="textarea" asp-for="Text"></textarea>
+                    <script src="~/js/text-editor.js"></script>
+                </div>
+
+                <div class="group">
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                    <p class="title">Введите теги (через запятую):</p>
+                    <input asp-for="Tags" type="text" class="input"/>
+                    <p class="description">Регистр будет переведён в нижний.</p>
+                </div>
+
+                <div class="group" align="center">
+                    <input type="submit" class="submit-create-post" value="Создать" />
+                </div>
+            </form>
+            <div class="create-form" align="center">
+                <a asp-action="Index" asp-controller="Home">Back to List</a>
+            </div>
         </div>
     </div>
 </div>

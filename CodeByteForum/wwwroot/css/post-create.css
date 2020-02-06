@@ -11,16 +11,15 @@
 .main-window     {
     background-color: #FCFCFC;
     border-radius: 20px;
-    padding: 0px 20px 20px;
     box-shadow: 0 4px 15px 0 rgba(112, 112, 112, 0.2);
-    width: 50vh;
+    width: 100%;
     margin: auto;
     color: #384764;
 }
 
 
 
-.header p {
+.create-header p {
     text-align: center;
     font-weight: bold;
     font-size: large;
@@ -68,10 +67,8 @@
     border: 1px solid #d3e1f6;
 }
 
-.header {
+.create-header {
     width: 100%;
-    margin-bottom: -20px;
-    margin-top: 100px;
     height: 40px;
     font-family: Verdana, Arial, sans-serif;
     background: linear-gradient(#2669a2, #1c4e79);
@@ -107,4 +104,46 @@
 .format-button:hover {
     color: #384764;
     background: rgba(56,71,100,0.06);
+}
+
+.create-form {
+    padding: 0px 20px 20px;
+}
+
+.input {
+    font-size: 23px;
+    padding-left: 5px;
+    color: #384764;
+    background: #f1f3fb;
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: #d3e1f6;
+    border-right-color: #d3e1f6;
+    border-bottom-color: #d3e1f6;
+    border-left-color: #d3e1f6;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    height: 50px;
+}
+
+.submit-create-post {
+    height: 35px;
+    color: #fff;
+    background: #2669A2;
+    box-shadow: 0 4px 15px 0 rgba(112,112,112,0.2);
+    border: none;
+    background: linear-gradient(#2669a2, #1c4e79);
+    border-color: #1e5481;
+    padding-right: 25px;
+    padding-left: 25px;
+    margin-top: 10px;
+    border-radius: 8px;
+    margin: auto;
+}
+
+.submit-create-post:hover {
+    color: #fff;
+    box-shadow: 0 4px 15px 0 rgba(112,112,112,0.2);
+    background: linear-gradient(#215c8d, #174164);
 }

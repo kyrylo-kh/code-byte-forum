@@ -36,12 +36,21 @@ namespace CodeByteForum.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreatePostViewModel model)
         {
-            // Работа с тэгами.
-            List<string> _tags = model.Tags
-                .ToLower() // В нижний регистр.
-                .Replace(" ", "") // Удалить все пробелы.
-                .Split(',') // Сделать массив подстрок.
-                .ToList(); // В List<string>.
+            List<string> _tags = null;
+
+            if (model.Tags != null)
+            {
+                // Работа с тэгами.
+                    _tags = model.Tags
+                    .ToLower() // В нижний регистр.
+                    .Replace(" ", "") // Удалить все пробелы.
+                    .Split(',') // Сделать массив подстрок.
+                    .ToList(); // В List<string>.
+            }
+            else
+            {
+                _tags = new List<string>() { "default" };
+            }
 
             // Генерация модели владельца поста.
             User _user = await userManager.FindByNameAsync(User.Identity.Name);
