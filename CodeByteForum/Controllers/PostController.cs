@@ -157,5 +157,67 @@ namespace CodeByteForum.Controllers
             }
             return RedirectToAction("Question", id);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+                Post post = await db.Posts
+                    .Include(p => p.Sender)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                if (post.Sender.Login == User.Identity.Name && post != null)
+                {
+                    string _tags = "";
+
+                    foreach (string tag in post.Tags)
+                    {
+                        _tags += tag + ", ";
+                    }
+
+                CreatePostViewModel viewModel = new CreatePostViewModel
+                {
+                    Title = post.Title,
+                    Tags = _tags,
+                    Topic = post.Topic,
+                    Text = post.Text,
+                    Id = id
+                };
+
+                    return View(viewModel);
+                }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CreatePostViewModel model, int? id)
+        {
+            if (model != null && id != null)
+            {
+                List<string> _tags = null;
+
+                if (model.Tags != null)
+                {
+                    // Работа с тэгами.
+                    _tags = model.Tags
+                    .ToLower() // В нижний регистр.
+                    .Replace(" ", "") // Удалить все пробелы.
+                    .Split(',') // Сделать массив подстрок.
+                    .ToList(); // В List<string>.
+                }
+                else
+                {
+                    _tags = new List<string>() { "default" };
+                }
+
+                Post post = await db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+                post.Title = model.Title;
+                post.Tags = _tags;
+                post.Topic = model.Topic;
+                post.Text = model.Text;
+                await db.SaveChangesAsync();
+                return Redirect("~/Post/Question/" + id);
+            }
+            return NotFound();
+        }
     }
 }

@@ -17,6 +17,13 @@
                 </a>
             </h6>
             <h6>Дата создания: @Model.Post.PublishDate.ToString("dd/MM/yyyy HH:mm")</h6>
+            <ul class="tags">
+                @foreach (var tag in Model.Post.Tags)
+                {
+                    <li><a href="#">@tag</a></li>
+                }
+                <br />
+            </ul>
         </div>
         <h2 class="title">@Model.Post.Title</h2>
         <div class="main-text">
@@ -25,7 +32,16 @@
         <div class="info-block">
             <h6>Просмотров: @Model.Post.ViewsCount</h6>
             <h6>Ответов: @Model.Post.AnswerCount</h6>
-        </div>
+            @if (Model.Sender.Login == User.Identity.Name)
+            {
+                <form method="post" asp-action="Delete" asp-controller="Post" asp-route-id="@Model.Post.Id">
+                    <button class="btn btn-danger">Удалить</button>
+                </form>
+                <form method="get" asp-action="Edit" asp-controller="Post" asp-route-id="@Model.Post.Id">
+                    <button class="btn btn-info">Изменить</button>
+                </form>
+             }
+            </div>
         @foreach (Answer comment in Model.Answers)
         {
             <hr class="line" />
@@ -47,12 +63,6 @@
                     @comment.Text
                 </div>
             </div>
-        }
-        @if (Model.Sender.Login == User.Identity.Name)
-        {
-            <form method="post" asp-action="Delete" asp-controller="Post" asp-route-id="@Model.Post.Id">
-                <button class="btn btn-danger">Удалить</button>
-            </form>
         }
         </div>
     @if (User.Identity.IsAuthenticated)

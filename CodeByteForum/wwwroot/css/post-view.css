@@ -123,3 +123,28 @@
     box-shadow: 0 4px 15px 0 rgba(112,112,112,0.2);
     background: linear-gradient(#215c8d, #174164);
 }
+
+.tags {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+.tags li {
+    list-style: none;
+    float: left;
+    margin-right: 3px;
+    }
+
+.tags a {
+    text-decoration: none;
+    background-color: #e5e5e5;
+    color: #555555;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.tags a:hover {
+    background-color: #c1c1c1;
+    color: #424242;
+}

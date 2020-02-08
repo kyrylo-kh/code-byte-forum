@@ -8,6 +8,7 @@ namespace CodeByteForum.ViewModels
 {
     public class CreatePostViewModel
     {
+        public int? Id { get; set; }
         [Required(ErrorMessage = "Название обязательно")]
         public string Title { get; set; }
         public string Tags { get; set; }
