@@ -20,17 +20,32 @@
             <div class="flex-shrink-1 flex-grow-1">
                 @if (Model.User.Posts?.Count > 0)
                 {
-                    <ul class="list-group" align="center">
-                        <li class="list-group-item active">Посты от пользователя</li>
+                    <div class="list-group flex-column"> 
+                        <div class="list-group-item active">
+                            <h3>Посты от пользователя</h3>
+                        </div>
                         @foreach (Post post in Model.User.Posts)
                         {
-                            <li class="list-group-item">
-                                <a asp-action="Question" asp-controller="Post" asp-route-id="@post.Id">
-                                    @post.Title
-                                </a>
-                            </li>
-                        }
-                    </ul>
+                            <div class="d-flex justify-content-between list-group-item align-items-center">
+                                <div>
+                                    <a asp-action="Question" asp-controller="Post" asp-route-id="@post.Id">
+                                        @post.Title
+                                    </a>
+                                </div>
+                                @if (Model.User.Login == User.Identity.Name)
+                                {
+                                    <div>
+                                        <form style="display: inline;" asp-controller="Post" asp-action="Edit" asp-route-id="@post.Id">
+                                            <button type="submit" class="btn btn-info">Изменить</button>
+                                        </form>
+                                        <form style="display: inline;" asp-controller="Post" asp-action="Delete" asp-route-id="@post.Id">
+                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                         }
+                    </div>
                 }
                 else
                 {
@@ -39,11 +54,15 @@
             </div>
             <div class="account-info">
                 <div class="current-info">
-                    <p><img width="100" height="100" src="@Url.Content(Model.User.Avatars.Last().Path)" /></p>
-                    <p>Почта: @Model.User.Email</p>
-                    <p>Логин: @Model.User.Login</p>
-                    <p>Количество постов: @Model.User.Posts.Count</p>
-                    <p>Количество ответов: @Model.User.Answers.Count</p>
+                    <div class="d-flex justify-content-between">
+                        <p><img width="100" height="100" src="@Url.Content(Model.User.Avatars.Last().Path)" /></p>
+                        <div>
+                            <p>Почта: @Model.User.Email</p>
+                            <p>Логин: @Model.User.Login</p>
+                            <p>Количество постов: @Model.User.Posts.Count</p>
+                            <p>Количество ответов: @Model.User.Answers.Count</p>
+                        </div>
+                    </div>
                     @if (Model.User.Login == User.Identity.Name)
                     {
                         <button id="email-change-btn">Сменить почту/аву</button>

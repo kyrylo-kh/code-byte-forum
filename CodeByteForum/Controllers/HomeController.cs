@@ -34,7 +34,7 @@ namespace CodeByteForum.Controllers
             {
                 if (p.Text.Length > 1400)
                 {
-                    p.Text =    p.Text.Substring(0, 1399);
+                    p.Text = p.Text.Substring(0, 1399);
                     p.Text += "...";
                 }
             });
