@@ -8,6 +8,7 @@ Technologies used during development:
 - Microsoft SQL
 ## How to run
 1) Download it. (git clone https://github.com/Thposbsmt/code-byte-forum.git)  
-2) Open the console in Visual Studio using the Tools > NuGet Package Manager > Package Manager Console command.
-3) Write in console Update-Database to create database.
-4) Press F5 or CTRL + F5
+2) Start CodeByteForum.sln
+3) Open the console in Visual Studio using the Tools > NuGet Package Manager > Package Manager Console command.
+4) Write in console Update-Database to create database.
+5) Press F5 or CTRL + F5
