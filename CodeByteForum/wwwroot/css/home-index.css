@@ -1,4 +1,4 @@
-﻿body {
+﻿.body {
     font-family: Georgia, "Times New Roman", Times, serif;
     color: #555;
 }
@@ -23,7 +23,7 @@ h6, .h6 {
 
 .post-title {
     margin-bottom: 20px;
-    font-size: 60px;
+    font-size: 30px;
     font-weight: normal;
 }
 

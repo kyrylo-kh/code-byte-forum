@@ -94,25 +94,26 @@ body {
 .nav a, .logout{
     display: block;
     color: black;
+    border-bottom: 4px solid #20598A;
     padding: 10px 25px;
     text-decoration: none;
-    border: 2px solid black;
     border-radius: 0px 0px 0px 0px;
+    border-top: 2px solid #20598A;
     margin: 10px;
     font-weight: bold;
     transition: 0.3s;
 }
-
+    
 .nav .logout:hover{
     background: linear-gradient(#2669a2, #1c4e79);
     color: white;
-    border: 1px solid black;
+    border: none;
 }
 
 .nav a:hover{
     background: linear-gradient(#2669a2, #1c4e79);
+    border: none;
     color: white;
-    border: 1px solid black;
 }
 .nav li:first-child a {
     border-radius: 20px 0px 0px 20px;
