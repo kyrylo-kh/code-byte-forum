@@ -27,7 +27,7 @@
                                 </div>
                                 @if (Model.User.Login == User.Identity.Name)
                                 {
-                                    <div>
+                                    <div class="actions">
                                         <form style="display: inline;" asp-controller="Post" asp-action="Edit" asp-route-id="@post.Id">
                                             <button type="submit" class="btn edit">Изменить</button>
                                         </form>
