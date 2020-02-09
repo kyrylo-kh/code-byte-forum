@@ -86,6 +86,7 @@
     display: flex;
     width: 85%;
     font-size: 13px;
+    word-wrap: break-word;
 }
 
 .textarea {
@@ -149,3 +150,22 @@
     color: #424242;
 }
 
+.actions {
+    list-style: none;
+}
+
+.actions li {
+    display: inline-block;
+}
+
+.btn {
+    padding-left: inherit;
+}
+
+.edit {
+    color: #2669A2;
+}
+
+.delete {
+    color: #c41111;
+}

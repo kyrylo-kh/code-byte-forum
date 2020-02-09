@@ -83,3 +83,11 @@ input[type="file"] {
     border-top: 4px solid #d8d8d8;
     border-right: 4px solid #d8d8d8;
 }
+
+.edit {
+    color: #2669A2;
+}
+
+.delete {
+    color: #c41111;
+}

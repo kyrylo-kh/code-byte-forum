@@ -16,7 +16,6 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
     margin-top: 0;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: normal;
     color: #333;
 }
@@ -73,19 +72,21 @@ h6, .h6 {
 
 .button-read {
     color: black;
-    padding: 10px 25px;
-    text-decoration: none;
-    border: 2px solid black;
-    border-radius: 20px 0px 20px 0px;
+    padding: 5px 15px;
+    text-decoration: none !important;
     margin: 10px;
     font-weight: bold;
     transition: 0.3s;
+    border-left: 6px solid #20598A;
+    border-radius: 20px 0 0 20px;
+    font-style: oblique;
 }
 
 .button-read:hover {
     background: linear-gradient(#2669a2, #1c4e79);
     color: white;
-    border: 1px solid black;
+    border-left: none;
+    border-radius: 0 20px 20px 0;
 }
 
 .sidebar {
@@ -135,18 +136,20 @@ h6, .h6 {
 }
 
 .button-filter {
-    color: black;
-    padding: 5px 10px;
-    text-decoration: none;
-    border: 2px solid black;
-    margin: 10px;
-    font-weight: bold;
-    background-color: white;
-    transition: 0.3s;
+    height: 35px;
+    color: #fff;
+    box-shadow: 0 4px 15px 0 rgba(112,112,112,0.2);
+    border: none;
+    background: linear-gradient(#2669a2, #1c4e79);
+    border-color: #1e5481;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
 }
 
 .button-filter:hover {
-    background: linear-gradient(#2669a2, #1c4e79);
-    color: white;
-    border: 1px solid black;
+    color: #fff;
+    box-shadow: 0 4px 15px 0 rgba(112,112,112,0.2);
+    background: linear-gradient(#215c8d, #174164);
 }
