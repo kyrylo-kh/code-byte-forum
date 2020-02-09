@@ -29,18 +29,36 @@ namespace CodeByteForum.Controllers
                 .Include(s => s.Sender)
                 .OrderByDescending(p => p.PublishDate);
 
-
             await posts.ForEachAsync(p =>
             {
-                if (p.Text.Length > 1400)
+                if (p.Text != null)
                 {
-                    p.Text = p.Text.Substring(0, 1399);
-                    p.Text += "...";
+                    if (p.Text.Length > 1400)
+                    {
+                        p.Text = p.Text.Substring(0, 1399);
+                        p.Text += "...";
+                    }
                 }
             });
 
-            await posts.ForEachAsync(p => p.Text = p.Text.Replace("<b>", " ").Replace("</b>", " ").Replace("<h1>", " ").Replace("</h1>", " ").Replace("<h2>", " ").Replace("</h2>", " ").Replace("<h3>", " ").Replace("</h3>", " ").Replace("<h4>", " ").Replace("</h4>", " "));
-
+            await posts.ForEachAsync(p => 
+            {
+                if (p.Text != null)
+                {
+                    p.Text = p.Text
+                    .Replace("<b>", " ")
+                    .Replace("</b>", " ")
+                    .Replace("<h1>", " ")
+                    .Replace("</h1>", " ")
+                    .Replace("<h2>", " ")
+                    .Replace("</h2>", " ")
+                    .Replace("<h3>", " ")
+                    .Replace("</h3>", " ")
+                    .Replace("<h4>", " ")
+                    .Replace("</h4>", " ");
+                }
+            });
+        
 
             if (!String.IsNullOrEmpty(searchTitle))
             {

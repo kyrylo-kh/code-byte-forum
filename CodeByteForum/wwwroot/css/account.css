@@ -3,7 +3,14 @@
     min-height: 95vh;
 }
 
-h1.active {
+.profile-main {
+    background-color: #FCFCFC;
+    border-radius: 0 0 20px 20px;
+    padding: 0px 20px 20px;
+    box-shadow: 0 4px 15px 0 rgba(112, 112, 112, 0.2);
+}
+
+.profile-header {
     padding: 1% 0 4% 0;
     display: block;
     font-size: 1.5em;
@@ -15,11 +22,13 @@ h1.active {
     text-align: center;
     font-weight: bold;
     border-radius: 15px 15px 0 0;
+    border-color: none !important;
 }
 
 .account-info {
     font-size: 1.2em;
-    border: 3px solid black;
+    border-left: 4px solid #d8d8d8;
+    border-top: 4px solid #d8d8d8;
     border-radius: 10px;
     padding: 1%;
     margin-left: 2%;
@@ -52,4 +61,25 @@ span {
 
 input[type="file"] {
     width: 350px;
+}
+
+.list-group-item {
+    border: none;
+    border-bottom: 4px solid #d8d8d8;
+    border-right: 4px solid #d8d8d8;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item:first-child {
+    border-bottom: none;
+}
+
+.posts-header {
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    border-top: 4px solid #d8d8d8;
+    border-right: 4px solid #d8d8d8;
 }

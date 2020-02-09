@@ -1,28 +1,21 @@
 ﻿@model CodeByteForum.ViewModels.ProfileViewModel;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Аккаунт";
+    ViewData["Title"] = "Профиль @Model.User.Login";
 }
 @section Styles {
     <link href="@Url.Content("~/css/account.css")" rel="stylesheet" type="text/css" />
 }
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Профиль @Model.User.Login</title>
-</head>
-<body>
-    <div class="container">
-        <h1 class="active" align="center">Информация о @Model.User.Login</h1>
+<div class="container">
+    <h1 class="profile-header" align="center">Информация о @Model.User.Login</h1>
+    <div class="profile-main">
         <div class="account d-flex justify-content-between">
             <div class="flex-shrink-1 flex-grow-1">
                 @if (Model.User.Posts?.Count > 0)
                 {
-                    <div class="list-group flex-column"> 
-                        <div class="list-group-item active">
-                            <h3>Посты от пользователя</h3>
+                    <div class="list-group flex-column">
+                        <div class="list-group-item posts-header">
+                            <h4>Посты от пользователя</h4>  
                         </div>
                         @foreach (Post post in Model.User.Posts)
                         {
@@ -44,7 +37,7 @@
                                     </div>
                                 }
                             </div>
-                         }
+                        }
                     </div>
                 }
                 else
@@ -76,83 +69,25 @@
                         <div id="email-change-form">
                             <p><label>Аватар: <br /><input type="file" name="AvatarFile" /></label></p>
                             <span asp-validation-for="@Model.AvatarFile"></span>
-                            <p><label>Почта: <br /><input asp-for="@Model.NewEmail" value="@Model.User.Email"/></label></p>
+                            <p><label>Почта: <br /><input asp-for="@Model.NewEmail" value="@Model.User.Email" /></label></p>
                             <span asp-validation-for="@Model.User.Email"></span>
                         </div>
                         <div id="password-change-form">
                             <p><label>Старый пароль: <br /><input asp-for="@Model.OldPassword" /></label></p>
                             <span asp-validation-for="@Model.OldPassword"></span>
-                            <p><label>Новый пароль: <br /><input asp-for="@Model.NewPassword" id="NP"/></label></p>
+                            <p><label>Новый пароль: <br /><input asp-for="@Model.NewPassword" id="NP" /></label></p>
                             <span asp-validation-for="@Model.NewPassword" id="NPS"></span>
-                            <p><label>Подтвердите пароль: <br /><input asp-for="@Model.ConfirmPassword" id="CP"/></label></p>
+                            <p><label>Подтвердите пароль: <br /><input asp-for="@Model.ConfirmPassword" id="CP" /></label></p>
                             <span asp-validation-for="@Model.ConfirmPassword" id="CPS"></span>
                         </div>
                         <div id="save-div">
                             <p><input type="submit" value="Сохранить" id="save" /></p>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <script>
-        var emailChangeButton = document.getElementById("email-change-btn");
-        var passwordChangeButton = document.getElementById("password-change-btn");
-        var emailChangeForm = document.getElementById("email-change-form");
-        var passwordChangeForm = document.getElementById("password-change-form");
-        var save = document.getElementById("save");
-        var saveDiv = document.getElementById("save-div");
-        emailChangeButton.addEventListener("click", () => {
-            if (emailChangeForm.style.display == "block") {
-                emailChangeForm.style.display = "none";
-            }
-            else {
-                emailChangeForm.style.display = "block";
-            }
-            showOrHideSaveBut();
-        });
-        passwordChangeButton.addEventListener("click", () => {
-            if (passwordChangeForm.style.display == "block")
-                passwordChangeForm.style.display = "none";
-            else
-                passwordChangeForm.style.display = "block";
-            showOrHideSaveBut();
-        });
-        var NP = document.getElementById("NP");
-        var CP = document.getElementById("CP");
-        NP.addEventListener("input", Check);
-        CP.addEventListener("input", Check);
-        
-        function Check() {
-            if (!(NP.value == CP.value)) {
-                var CPS = document.getElementById("CPS");
-                CPS.innerText = "Пароли не совпадают";
-                save.disabled = true;
-                console.log(NP.value + " " + CP.value);
-            }
-            else if (NP.value == CP.value) {
-                var CPS = document.getElementById("CPS");
-                CPS.innerText = "";
-                console.log(NP.value + " " + CP.value);
-                save.disabled = false;
-            }
-        }
-
-        function showOrHideSaveBut() {
-            if (passwordChangeForm.style.display == "block" || emailChangeForm.style.display == "block")
-                saveDiv.style.display = "block";
-            else
-                saveDiv.style.display = "none";
-        }
-
-        var email = document.getElementById("User_Email");
-        email.addEventListener("input", () => {
-            email.value = email.value;
-            console.log(email.value);
-        })
-    </script>
-</body>
-</html>
+</div>
+<script src="~/js/profile-options.js"></script>
