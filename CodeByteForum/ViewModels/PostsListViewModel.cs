@@ -12,5 +12,6 @@ namespace CodeByteForum.ViewModels
         
         // Filter.
         public string SearchTitle { get; set; }
+        public string[] SearchTags { get; set; }
     }
 }

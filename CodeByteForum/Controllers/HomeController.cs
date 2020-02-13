@@ -23,7 +23,7 @@ namespace CodeByteForum.Controllers
             db = _db;
         }
 
-        public async Task<IActionResult> Index(string searchTitle)
+        public async Task<IActionResult> Index(string searchTitle, string searchTag)
         {
             IQueryable<Post> posts = db.Posts
                 .Include(s => s.Sender)
@@ -64,10 +64,24 @@ namespace CodeByteForum.Controllers
             {
                 posts = posts.Where(p => p.Title.Contains(searchTitle));
             }
+            List<Post> findedPosts = null;
+            if (!String.IsNullOrEmpty(searchTag))
+            {
+                string[] tags = searchTag.ToLower().Split(", ", ',');
+                findedPosts = await posts.ToListAsync();
+                int count = findedPosts.Count;
+                foreach (var tag in tags)
+                {
+                    findedPosts.AddRange(findedPosts.Where(p => p.Tags.Contains(tag)).ToList());
+                }
+                findedPosts = findedPosts.Skip(count).Distinct().ToList();
+                //findedPosts = await posts.ToListAsync();
+                //findedPosts = findedPosts.Where(p => p.Tags.Contains(searchTag));
+            }
 
             PostsListViewModel viewModel = new PostsListViewModel
             {
-                Posts = await posts.ToListAsync(),
+                Posts = findedPosts ?? await posts.ToListAsync(),
                 SearchTitle = searchTitle
             };  
 
